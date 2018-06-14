@@ -35,7 +35,7 @@ public class MedicalChart {
             inverseJoinColumns = @JoinColumn(name = "diagnosis_id", referencedColumnName = "diagnosis_id"))
     Set<Diagnosis> diagnosis = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.REFRESH)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "medical_chart_allergies",
             joinColumns = @JoinColumn(name = "medical_chart_id", referencedColumnName = "medical_chart_id"),
             inverseJoinColumns = @JoinColumn(name = "allergy_id", referencedColumnName = "allergy_id"))

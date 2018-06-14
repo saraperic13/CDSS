@@ -9,6 +9,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,4 +31,17 @@ public class Diagnosis {
     @JoinColumn(referencedColumnName = "medical_chart_id", name = "medical_chart_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private MedicalChart medicalChart;
+
+    @OneToOne
+    private Doctor doctor;
+
+    @OneToOne
+    private Disease disease;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JoinTable(name="diagnosis_medicines",
+            joinColumns = @JoinColumn(name = "diagnosis_id", referencedColumnName = "diagnosis_id"),
+            inverseJoinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id"))
+    Set<Medicine> medicines = new HashSet<>();
 }
