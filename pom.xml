@@ -71,6 +71,13 @@
 			<version>6.5.0.Final</version>
 		</dependency>
 
+        <dependency>
+            <groupId>com.ftn.cdss</groupId>
+            <artifactId>cdss.rules</artifactId>
+            <type>jar</type>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
 	</dependencies>
 
 	<build>

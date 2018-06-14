@@ -1,0 +1,8 @@
+
+dialect  "mvel"
+
+rule "pravilo"
+    when
+    then
+        System.out.println("HELLLOOO");
+end
