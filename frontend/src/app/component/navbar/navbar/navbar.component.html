@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand">Clinical Decision Support System</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div *ngIf="userLoggedIn()" class="collapse navbar-collapse" id="navbarNav">
+    <ul class="nav navbar-nav">
+      <li *ngFor="let link of links" class="nav-item active">
+        <a class="nav-link" routerLink="{{link.link}}">{{link.text}} <span class="sr-only">(current)</span></a>
+      </li>
+      <li *ngIf="userIsAdmin()" class="nav-item active">
+        <a class="nav-link" routerLink="/rules">Rules</a>
+      </li>
+      <li *ngIf="userIsAdmin()" class="nav-item active">
+        <a class="nav-link" routerLink="/user_management">User management</a>
+      </li>
+      <li *ngIf="userLoggedIn()" class="nav-item active">
+        <a class="nav-link" routerLink="/reports">Reports</a>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="userLoggedIn()" class="navbar-collapse collapse">
+    <ul class="navbar-nav ml-auto">
+      <li>
+        <div class="nav-item dropdown">
+          <a class="nav-link  dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Account
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="left: -95%">
+            <div style="color: gray; margin-left: 20px; margin-top: 5px; margin-bottom: 10px"><i>{{getUsername()}}</i>
+            </div>
+            <a class="dropdown-item" id="logout" routerLink="/login" (click)="logout()">Log out</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
