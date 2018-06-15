@@ -53,6 +53,25 @@
 			<scope>test</scope>
 		</dependency>
 
+        <!--Security-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--Drools-->
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
@@ -71,12 +90,19 @@
 			<version>6.5.0.Final</version>
 		</dependency>
 
+        <!--Drools project-->
         <dependency>
             <groupId>com.ftn.cdss</groupId>
             <artifactId>cdss.rules</artifactId>
             <type>jar</type>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+		<dependency>
+			<groupId>org.apache.maven.shared</groupId>
+			<artifactId>maven-invoker</artifactId>
+			<version>3.0.1</version>
+		</dependency>
 
 	</dependencies>
 

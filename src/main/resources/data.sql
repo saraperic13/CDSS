@@ -1,4 +1,21 @@
--- TRUNCATE TABLE  CASCADE;
+--PERMISSION
+INSERT INTO public.permission(permission_id, name)
+  VALUES (1, 'crudDoctor');
+INSERT INTO public.permission(permission_id, name)
+  VALUES (2, 'crudMedicine');
+
+--ROLE
+INSERT INTO public.role(role_id, role_type)
+  VALUES (1, 1);
+INSERT INTO public.role(role_id, role_type)
+  VALUES (2, 0);
+
+--ROLE_PERMISSIONS
+INSERT INTO public.role_permissions(role_id, permission_id)
+  VALUES (1, 1);
+INSERT INTO public.role_permissions(role_id, permission_id)
+  VALUES (1, 2);
+
 
 -- SYMPTOMS
 INSERT INTO public.symptoms(symptom_id, name)
