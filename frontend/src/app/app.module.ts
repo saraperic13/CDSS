@@ -13,13 +13,15 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CanActivateAuthGuard} from "./guard/can-activate-auth-guard";
 import {CanActivateAdminGuard} from "./guard/can-activate-admin-guard";
 import {TokenInterceptorService} from "./interceptor/TokenInterceptorService";
+import { HomeComponent } from './component/home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

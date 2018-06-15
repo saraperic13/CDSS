@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.accountService.login(this.user.username, this.user.password).subscribe(
       (loggedIn: boolean) => {
-        console.log("EEEVO MEEE");
         if (loggedIn) {
           this.router.navigate(['/home']);
         }
