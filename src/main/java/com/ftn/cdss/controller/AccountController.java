@@ -31,4 +31,5 @@ public class AccountController {
         final TokenDto tokenDto = new TokenDto(token);
         return new ResponseEntity<>(tokenDto, HttpStatus.OK);
     }
+
 }

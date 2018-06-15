@@ -12,13 +12,10 @@ export class AccountService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    console.log("LOGIIIIIIN");
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
     let param = JSON.stringify({username, password});
 
     return this.http.post(this.basePath + "login", param, {headers}).map((res: any) => {
-
-      console.log("HEEEJ ULOGOVAN SAAAAM");
 
       localStorage.removeItem('currentAccount');
       let token = res && res.token;

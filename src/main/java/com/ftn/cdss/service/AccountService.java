@@ -64,6 +64,12 @@ public class AccountService {
             admin.setPassword(passwordEncoder.encode("#adminjecaR1"));
             admin.getRoles().add(roleDao.getOne(1L));
             accountDao.save(admin);
+
+            final Account doctor = new Account();
+            doctor.setUsername("drAca");
+            doctor.setPassword(passwordEncoder.encode("#acajecaR1"));
+            doctor.getRoles().add(roleDao.getOne(2L));
+            accountDao.save(doctor);
         }
     }
 }
