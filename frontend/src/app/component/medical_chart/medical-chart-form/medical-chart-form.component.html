@@ -1,0 +1,47 @@
+<h5 class="title">Chart</h5>
+
+<form novalidate id="chartForm" [formGroup]="form"
+      (ngSubmit)="saveChart(ssn.value, name.value, surname.value)">
+
+  <div class="form-group">
+    <label for="ssn">SSN</label>
+    <input type="number" formControlName="ssn" id="ssn" placeholder="Enter a SSN " [ngClass]="{
+            'form-control is-invalid': ssn.invalid && (ssn.dirty || ssn.touched),
+            'form-control is-valid': ssn.valid && (ssn.dirty || ssn.touched),
+            'form-control':true
+          }">
+
+    <div class="invalid-feedback" *ngIf="ssn.errors && (ssn.dirty || ssn.touched)">
+      <p *ngIf="ssn.errors.required">SSN is required!</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" formControlName="name" id="name" placeholder="Enter a name " [ngClass]="{
+            'form-control is-invalid': name.invalid && (name.dirty || name.touched),
+            'form-control is-valid': name.valid && (name.dirty || name.touched),
+            'form-control':true
+          }">
+
+    <div class="invalid-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+      <p *ngIf="name.errors.required">Name is required!</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="surname">Surname</label>
+    <input type="text" formControlName="surname" id="surname" placeholder="Enter a surname " [ngClass]="{
+            'form-control is-invalid': surname.invalid && (surname.dirty || surname.touched),
+            'form-control is-valid': surname.valid && (surname.dirty || surname.touched),
+            'form-control':true
+          }">
+
+    <div class="invalid-feedback" *ngIf="surname.errors && (surname.dirty || surname.touched)">
+      <p *ngIf="surname.errors.required">Surname is required!</p>
+    </div>
+  </div>
+
+  <button type="submit" id="saveChartButton" class="btn btn-success" [disabled]="form.invalid">Save</button>
+</form>
+

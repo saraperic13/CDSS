@@ -11,6 +11,7 @@ import {RoleType} from "../../../domain/RoleType";
 export class NavbarComponent implements OnInit {
 
   username: string;
+
   constructor(private accountService: AccountService) {
   }
 
@@ -21,21 +22,32 @@ export class NavbarComponent implements OnInit {
     this.links.push(new NavbarLink('Home', '/home'));
   }
 
-  getUsername(){
+  getUsername() {
     return this.username = this.accountService.getCurrentAccount().username;
   }
+
   userLoggedIn() {
     return this.accountService.isLoggedIn();
   }
 
-  userIsAdmin(){
+  userIsAdmin() {
     let roles = this.accountService.getCurrentAccount().roles;
-    for (let role of roles ){
-      if (role.toLowerCase() === RoleType.ADMIN.toLowerCase()){
+    for (let role of roles) {
+      if (role.toLowerCase() === RoleType.ADMIN.toLowerCase()) {
         return true;
       }
     }
 
+    return false;
+  }
+
+  userIsDoctor() {
+    let roles = this.accountService.getCurrentAccount().roles;
+    for (let role of roles) {
+      if (role.toLowerCase() === RoleType.DOCTOR.toLowerCase()) {
+        return true;
+      }
+    }
     return false;
   }
 

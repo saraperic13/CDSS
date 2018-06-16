@@ -48,7 +48,7 @@ public class MedicalChartController {
     }
 
 
-    @PreAuthorize("hasAuthority('crudMedicalChart')")
+//    @PreAuthorize("hasAuthority('crudMedicalChart')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAll() {
 

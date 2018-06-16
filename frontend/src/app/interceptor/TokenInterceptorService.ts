@@ -18,7 +18,6 @@ export class TokenInterceptorService implements HttpInterceptor {
           'authorization': `${accountService.getToken()}`
         }
       });
-    console.log(request);
     return next.handle(request);
   }
 

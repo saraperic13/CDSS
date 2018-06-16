@@ -1,0 +1,30 @@
+<table class="table-sm table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">SSN</th>
+    <th scope="col">NAME</th>
+    <th scope="col">SURNAME</th>
+    <th scope="col">Details</th>
+    <th scope="col">Edit</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let chart of charts;let idx = index">
+    <td scope="row">{{idx+1}}</td>
+    <td scope="row">{{chart.ssn}}</td>
+    <td scope="row">{{chart.name}}</td>
+    <td scope="row">{{chart.surname}}</td>
+    <td scope="row">
+      <button class="btn btn-info" type="button" (click)="details(chart.id)">>></button>
+    </td>
+    <td scope="row">
+      <button href="#" (click)="updateChart(chart)" class="btn btn-warning ">E</button>
+    </td>
+    <td scope="row">
+      <button (click)="deleteChart(chart.id)" class="btn btn-danger">X</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
