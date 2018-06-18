@@ -19,6 +19,9 @@ import { MedicalChartFormComponent } from './component/medical_chart/medical-cha
 import { MedicalChartPageComponent } from './component/medical_chart/medical-chart-page/medical-chart-page.component';
 import {MedicalChartService} from "./service/medical-chart/medical-chart.service";
 import {CanActivateDoctorGuard} from "./guard/can-activate-doctor-guard";
+import { MedicalChartDetailsComponent } from './component/medical_chart/medical-chart-details/medical-chart-details.component';
+import {DiagnosticService} from "./service/diagnostic-service/diagnostic.service";
+import {NotFoundPageComponent} from "./component/not-found-page/not-found-page.component";
 
 
 @NgModule({
@@ -29,7 +32,9 @@ import {CanActivateDoctorGuard} from "./guard/can-activate-doctor-guard";
     HomeComponent,
     MedicalChartListComponent,
     MedicalChartFormComponent,
-    MedicalChartPageComponent
+    MedicalChartPageComponent,
+    MedicalChartDetailsComponent,
+    NotFoundPageComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +48,7 @@ import {CanActivateDoctorGuard} from "./guard/can-activate-doctor-guard";
     AccountService,
     AccountService,
     MedicalChartService,
+    DiagnosticService,
     HttpClient,
     CanActivateAuthGuard,
     CanActivateAdminGuard,

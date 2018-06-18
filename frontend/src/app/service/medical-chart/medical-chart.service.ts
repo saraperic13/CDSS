@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/";
 import {MedicalChart} from "../../domain/MedicalChart";
+import {Diagnosis} from "../../domain/Diagnosis";
+import {Symptoms} from "../../domain/Symptoms";
 
 @Injectable()
 export class MedicalChartService {
@@ -16,6 +18,18 @@ export class MedicalChartService {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
 
     return this.http.get(this.path, {headers}).map((response: any) => {
+      return response;
+
+    }).catch((error: any) => {
+      return Observable.throw(error || 'Server error');
+    });
+  }
+
+  getOne(chartId: number): Observable<MedicalChart> {
+
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    return this.http.get(this.path + "/" + chartId, {headers}).map((response: any) => {
       return response;
 
     }).catch((error: any) => {

@@ -1,0 +1,34 @@
+<div class="containter">
+  <div class="row" style="margin-top: 2%">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <div *ngIf="chart" class="chart">
+        <h3>SSN: {{chart.ssn}}</h3>
+        <h5>Name: {{chart.name}}</h5>
+        <h5>Surname: {{chart.surname}}</h5>
+      </div>
+      <hr/>
+      <h4>Diagnose</h4>
+      <p>Please, separate symptoms with comma ','.</p>
+
+      <form novalidate id="form" [formGroup]="form"
+            (ngSubmit)="diagnose(symptoms.value)">
+
+        <div class="form-group">
+          <label for="symptoms">symptoms</label>
+          <input type="text" formControlName="symptoms" id="symptoms" placeholder="Enter all the symptoms" [ngClass]="{
+            'form-control is-invalid': symptoms.invalid && (symptoms.dirty || symptoms.touched),
+            'form-control is-valid': symptoms.valid && (symptoms.dirty || symptoms.touched),
+            'form-control':true
+          }">
+          <div class="invalid-feedback" *ngIf="symptoms.errors && (symptoms.dirty || symptoms.touched)">
+            <p *ngIf="symptoms.errors.required">Enter at least one symptom!</p>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Diagnose</button>
+      </form>
+
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+</div>

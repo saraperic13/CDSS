@@ -5,6 +5,8 @@ import {CanActivateAuthGuard} from "./guard/can-activate-auth-guard";
 import {HomeComponent} from "./component/home/home.component";
 import {MedicalChartPageComponent} from "./component/medical_chart/medical-chart-page/medical-chart-page.component";
 import {CanActivateDoctorGuard} from "./guard/can-activate-doctor-guard";
+import {MedicalChartDetailsComponent} from "./component/medical_chart/medical-chart-details/medical-chart-details.component";
+import {NotFoundPageComponent} from "./component/not-found-page/not-found-page.component";
 
 const appRoutes: Routes = [
   {
@@ -20,12 +22,16 @@ const appRoutes: Routes = [
     path: 'medical_charts',
     component: MedicalChartPageComponent,
     canActivate: [CanActivateDoctorGuard]
+  },
+  {
+    path: 'medical_charts/:chartId',
+    component: MedicalChartDetailsComponent,
+    canActivate: [CanActivateDoctorGuard]
+  },
+  {
+    path: '**',
+    component: NotFoundPageComponent
   }
-
-  //   {
-  //     path: '**',
-  //     component: NotFoundPageComponent
-  //   }
 ];
 
 

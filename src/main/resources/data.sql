@@ -13,6 +13,8 @@ INSERT INTO public.permission(permission_id, name)
   VALUES (3, 'readMedicine');
 INSERT INTO public.permission(permission_id, name)
   VALUES (4, 'crudMedicalChart');
+INSERT INTO public.permission(permission_id, name)
+  VALUES (5, 'diagnose');
 
 --ROLE_PERMISSIONS
 INSERT INTO public.role_permissions(role_id, permission_id)
@@ -23,6 +25,8 @@ INSERT INTO public.role_permissions(role_id, permission_id)
   VALUES (2, 3);
 INSERT INTO public.role_permissions(role_id, permission_id)
   VALUES (2, 4);
+INSERT INTO public.role_permissions(role_id, permission_id)
+  VALUES (2, 5);
 
 
 -- SYMPTOMS
