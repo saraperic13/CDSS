@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Setter
 public class BloodOxygenLevelChangeEvent implements Serializable {
 
-    private Long ssn;
+    private Integer ssn;
 
     private double change;
 

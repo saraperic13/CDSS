@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class ICUPatient {
 
-    private Long ssn;
+    private Integer ssn;
 
     private MedicalChart medicalChart;
 

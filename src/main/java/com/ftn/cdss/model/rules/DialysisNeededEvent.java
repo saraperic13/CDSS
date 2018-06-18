@@ -7,18 +7,13 @@ import lombok.Setter;
 import org.kie.api.definition.type.Expires;
 import org.kie.api.definition.type.Role;
 
-import java.io.Serializable;
-
 @Role(Role.Type.EVENT)
-@Expires("30m")
+@Expires("12h")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UrineEvent implements Serializable {
+public class DialysisNeededEvent {
 
     private Integer ssn;
-
-    private double change;
-
 }

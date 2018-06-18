@@ -21,11 +21,11 @@ import static org.junit.Assert.assertThat;
 
 public class AcceleratedHeartbeatTest {
 
-    private final Long PATIENT_1_SSN = 1L;
-    private final Long PATIENT_2_SSN = 2L;
-    private final Long PATIENT_3_SSN = 3L;
+    private final Integer PATIENT_1_SSN = 1;
+    private final Integer PATIENT_2_SSN = 2;
+    private final Integer PATIENT_3_SSN = 3;
 
-    private final HashMap<Long, ICUPatient> icuPatients = new HashMap<>();
+    private final HashMap<Integer, ICUPatient> icuPatients = new HashMap<>();
 
     @Test
     public void testCEPConfigThroughKModuleXML() {
@@ -76,26 +76,26 @@ public class AcceleratedHeartbeatTest {
         assertThat(numOfAcceleratedHeartbeatEvent.size(), equalTo(1));
     }
 
-    private ICUPatient createPatient(Long ssn) {
+    private ICUPatient createPatient(Integer ssn) {
         final ICUPatient patient = new ICUPatient();
         patient.setSsn(ssn);
         patient.setBloodOxygenLevel(100);
         return patient;
     }
 
-    private HashMap<Long, FactHandle> fillTheMapInsertInSession(KieSession kieSession) {
+    private HashMap<Integer, FactHandle> fillTheMapInsertInSession(KieSession kieSession) {
         icuPatients.clear();
         icuPatients.put(PATIENT_1_SSN, createPatient(PATIENT_1_SSN));
         icuPatients.put(PATIENT_2_SSN, createPatient(PATIENT_2_SSN));
 
-        final HashMap<Long, FactHandle> patientsFacts = new HashMap<>();
+        final HashMap<Integer, FactHandle> patientsFacts = new HashMap<>();
         for (ICUPatient patient : icuPatients.values()) {
             patientsFacts.put(patient.getSsn(), kieSession.insert(patient));
         }
         return patientsFacts;
     }
 
-    private HeartBeatEvent simulateHeartbeat(Long ssn) {
+    private HeartBeatEvent simulateHeartbeat(Integer ssn) {
         return new HeartBeatEvent(ssn);
     }
 

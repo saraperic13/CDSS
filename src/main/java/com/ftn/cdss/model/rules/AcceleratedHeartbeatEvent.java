@@ -15,5 +15,5 @@ import org.kie.api.definition.type.Role;
 @AllArgsConstructor
 public class AcceleratedHeartbeatEvent {
 
-    private Long ssn;
+    private Integer ssn;
 }

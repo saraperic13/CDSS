@@ -17,5 +17,5 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class LowOxygenLevelEvent implements Serializable {
 
-    private Long ssn;
+    private Integer ssn;
 }

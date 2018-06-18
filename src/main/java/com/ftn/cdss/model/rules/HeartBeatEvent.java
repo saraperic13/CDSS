@@ -17,6 +17,6 @@ import org.kie.api.definition.type.Role;
 @Setter
 public class HeartBeatEvent implements Serializable {
 
-    private Long ssn;
+    private Integer ssn;
 }
 
