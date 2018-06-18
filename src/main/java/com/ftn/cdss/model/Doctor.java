@@ -25,7 +25,7 @@ public class Doctor {
 
     private String surname;
 
-    private String licence_id;
+    private String licenceId;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Account account;

@@ -56,6 +56,15 @@ public class AccountService {
         return null;
     }
 
+    public Account createDoctor(String username, String password) {
+        final Account account = new Account();
+        account.setPassword(passwordEncoder.encode(password));
+        account.setUsername(username);
+        account.getRoles().add(roleDao.getOne(2L));
+
+        return accountDao.save(account);
+    }
+
     public void initAccounts() {
 
         if (accountDao.findAll().isEmpty()) {

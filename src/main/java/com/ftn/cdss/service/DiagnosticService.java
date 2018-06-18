@@ -2,9 +2,8 @@ package com.ftn.cdss.service;
 
 import com.ftn.cdss.model.Disease;
 import com.ftn.cdss.model.MedicalChart;
-import com.ftn.cdss.model.rules.PossibleDisease;
 import com.ftn.cdss.model.Symptom;
-import com.ftn.cdss.model.rules.Symptoms;
+import com.ftn.cdss.model.rules.PossibleDisease;
 import com.ftn.cdss.repository.MedicineDao;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -48,7 +47,7 @@ public class DiagnosticService {
 
         kieSession.insert(diseases);
 
-        for(Symptom s : symptomList){
+        for (Symptom s : symptomList) {
             kieSession.insert(s);
         }
         kieSession.insert(medicalChart);
