@@ -1,0 +1,35 @@
+
+import com.ftn.cdss.model.rules.BloodOxygenLevelChangeEvent;
+import com.ftn.cdss.model.rules.AcceleratedHeartbeatEvent;
+import com.ftn.cdss.model.rules.LowOxygenLevelEvent;
+import com.ftn.cdss.model.rules.HeartBeatEvent;
+import com.ftn.cdss.model.rules.ICUPatient;
+
+rule "Low oxygen level in blood!"
+    when
+        ICUPatient($ssn: ssn, bloodOxygenLevel < 70)
+        not(
+            BloodOxygenLevelChangeEvent($ssn == ssn, $change: change, change > 0 )
+            over window:time(15m)
+        )
+    then
+        insert(new LowOxygenLevelEvent($ssn));
+        drools.halt();
+end
+
+rule "Accelerated heartbeat!"
+    when
+        ICUPatient($ssn: ssn)
+        $hb1: HeartBeatEvent(ssn==$ssn)
+        Number(intValue > 25) from accumulate(
+            $hb2: HeartBeatEvent(
+                this != $hb1,
+                ssn == $ssn,
+                this meets[10s] $hb1
+            ),
+            count($hb2)
+        )
+    then
+        insert(new AcceleratedHeartbeatEvent($ssn));
+        drools.halt();
+end
