@@ -1,0 +1,104 @@
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
+import com.ftn.cdss.model.rules.PossibleDisease;
+import com.ftn.cdss.model.Symptom;
+import com.ftn.cdss.model.Disease;
+import com.ftn.cdss.model.rules.FoundDisease;
+import com.ftn.cdss.model.rules.FoundDiseases;
+import java.util.Collections;
+import com.ftn.cdss.util.DetectedDiseasesComparator;
+
+
+rule "Prehlada"
+    when
+       $list: ArrayList($listSize: size>=4) from collect (
+           Symptom("curenje iz nosa" contains name.toLowerCase()
+                   ||"bol u grlu" contains name.toLowerCase()
+                   || "glavobolja" contains name.toLowerCase()
+                   || "kijanje" contains name.toLowerCase()
+                   || "kašalj" contains name.toLowerCase()
+           )
+       )
+    then
+        final FoundDisease foundDisease = new FoundDisease();
+        foundDisease.setDiseaseId(1L);
+        foundDisease.setNumOfSymptoms(5);
+        foundDisease.setNumOfFulfilled($listSize);
+        foundDisease.setDiseaseName("Prehlada");
+
+        insert(foundDisease);
+end
+
+rule "Groznica"
+    when
+       $list: ArrayList($listSize: size>=4) from collect (
+           Symptom("curenje iz nosa" contains name.toLowerCase()
+                   ||"bol u grlu" contains name.toLowerCase()
+                   || "glavobolja" contains name.toLowerCase()
+                   || "kijanje" contains name.toLowerCase()
+                   || "kašalj" contains name.toLowerCase()
+                   || "temperatura veća od 38" contains name.toLowerCase()
+                   || "drhtavica" contains name.toLowerCase()
+           )
+       )
+    then
+        final FoundDisease foundDisease = new FoundDisease();
+        foundDisease.setDiseaseId(2L);
+        foundDisease.setNumOfSymptoms(7);
+        foundDisease.setNumOfFulfilled($listSize);
+        foundDisease.setDiseaseName("Groznica");
+
+        insert(foundDisease);
+end
+
+
+rule "Found diseses list does not exist"
+    salience -10
+    when
+        $found: FoundDisease()
+        not(FoundDiseases())
+    then
+        final FoundDiseases diseases = new FoundDiseases();
+        diseases.setDiseases(new ArrayList<FoundDisease>());
+        diseases.getDiseases().add($found);
+
+        insert(diseases);
+end
+
+rule "Found disease list does exist"
+    salience -15
+    when
+        $found: FoundDisease()
+        $diseases: FoundDiseases(diseases not contains $found)
+    then
+        $diseases.getDiseases().add($found);
+
+        update($diseases);
+end
+
+rule "Possible diseases"
+    salience -100
+    when
+        $diseases: FoundDiseases()
+    then
+//        for(Object d: $diseases.getDiseases()){
+//            FoundDisease disease = (FoundDisease)d;
+//            System.out.println("BOLEEEST " + disease.getDiseaseName() + " "
+//            + disease.getNumOfSymptoms().toString()
+//            + " " + disease.getNumOfFulfilled().toString());
+//
+//        }
+
+        Collections.sort($diseases.getDiseases(), new DetectedDiseasesComparator());
+
+        for(Object d2: $diseases.getDiseases()){
+                    FoundDisease disease = (FoundDisease)d2;
+                    System.out.println("BOLEEEST 2222 " + disease.getDiseaseName() + " "
+                    + disease.getNumOfSymptoms().toString()
+                    + " " + disease.getNumOfFulfilled().toString());
+
+                }
+
+end

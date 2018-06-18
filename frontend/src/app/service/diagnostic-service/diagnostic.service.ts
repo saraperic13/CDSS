@@ -13,10 +13,10 @@ export class DiagnosticService {
   constructor(private http: HttpClient) {
   }
 
-  diagnose(symptoms: Symptoms): Observable<Diagnosis> {
+  diagnose(symptoms: Symptoms, chartId:number): Observable<Diagnosis> {
     console.log(symptoms);
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.post(this.path, symptoms, {headers}).map((response: any) => {
+    return this.http.post(this.path + "/" + chartId, symptoms, {headers}).map((response: any) => {
       return response;
 
     }).catch((error: any) => {

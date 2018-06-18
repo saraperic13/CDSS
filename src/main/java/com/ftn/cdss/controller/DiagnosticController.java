@@ -1,12 +1,9 @@
 package com.ftn.cdss.controller;
 
 import com.ftn.cdss.controller.converter.DiseaseConverter;
-import com.ftn.cdss.controller.converter.MedicalChartConverter;
 import com.ftn.cdss.controller.converter.SymptomsConverter;
-import com.ftn.cdss.controller.dto.MedicalChartDto;
 import com.ftn.cdss.controller.dto.SymptomsDto;
 import com.ftn.cdss.model.Disease;
-import com.ftn.cdss.model.MedicalChart;
 import com.ftn.cdss.model.Symptom;
 import com.ftn.cdss.service.DiagnosticService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +29,13 @@ public class DiagnosticController {
     }
 
     @PreAuthorize("hasAuthority('diagnose')")
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(value = "/{chartId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity diagnose(@RequestBody @Valid SymptomsDto symptomsDto) {
+    public ResponseEntity diagnose(@RequestBody @Valid SymptomsDto symptomsDto, @PathVariable Long chartId) {
 
         List<Symptom> symptomList = SymptomsConverter.fromDto(symptomsDto);
-        final Disease disease = this.diagnosticService.diagnose(symptomList);
+        final Disease disease = this.diagnosticService.diagnose(symptomList, chartId);
         return new ResponseEntity<>(DiseaseConverter.toDto(disease), HttpStatus.CREATED);
     }
 }

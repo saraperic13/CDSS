@@ -7,6 +7,4 @@ import java.util.Optional;
 
 public interface MedicalChartDao extends JpaRepository<MedicalChart, Long> {
 
-    @Override
-    Optional<MedicalChart> findById(Long id);
 }

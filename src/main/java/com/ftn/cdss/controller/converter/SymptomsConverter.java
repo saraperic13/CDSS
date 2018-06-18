@@ -15,7 +15,7 @@ public class SymptomsConverter {
         Symptom symp;
         for (String symptom : symptomsDto.getSymptoms()) {
             symp = new Symptom();
-            symp.setName(symptom);
+            symp.setName(symptom.trim());
             symptomList.add(symp);
         }
 

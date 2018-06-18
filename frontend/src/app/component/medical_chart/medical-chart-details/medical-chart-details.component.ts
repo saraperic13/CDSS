@@ -52,7 +52,7 @@ export class MedicalChartDetailsComponent implements OnInit {
 
   diagnose(symptomsString: string) {
     let symptoms: Symptoms = new Symptoms(symptomsString.split(","));
-    this.diagnosticService.diagnose(symptoms).subscribe(res => {
+    this.diagnosticService.diagnose(symptoms, this.chart.id).subscribe(res => {
       console.log(res);
     });
   }
