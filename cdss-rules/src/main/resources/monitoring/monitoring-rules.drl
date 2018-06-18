@@ -17,6 +17,7 @@ rule "Low oxygen level in blood!"
         drools.halt();
 end
 
+
 rule "Accelerated heartbeat!"
     when
         ICUPatient($ssn: ssn)

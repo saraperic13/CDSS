@@ -17,17 +17,6 @@ rule "Low oxygen level in blood!"
         drools.halt();
 end
 
-//rule "Low oxygen level in blood!"
-//    when
-//        ICUPatient($ssn: ssn, bloodOxygenLevel < 70)
-//        not(
-//            BloodOxygenLevelChangeEvent($ssn == ssn, $change: change, change > 0 )
-//            over window:time(15m)
-//        )
-//    then
-//        insert(new LowOxygenLevelEvent($ssn));
-//        drools.halt();
-//end
 
 rule "Accelerated heartbeat!"
     when
