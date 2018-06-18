@@ -1,0 +1,80 @@
+
+import com.ftn.cdss.model.rules.BloodOxygenLevelChangeEvent;
+import com.ftn.cdss.model.rules.AcceleratedHeartbeatEvent;
+import com.ftn.cdss.model.rules.LowOxygenLevelEvent;
+import com.ftn.cdss.model.rules.DialysisNeededEvent;
+import com.ftn.cdss.model.rules.UrineEvent;
+import com.ftn.cdss.model.rules.HeartBeatEvent;
+import com.ftn.cdss.model.rules.ICUPatient;
+import com.ftn.cdss.model.MedicalChart;
+import com.ftn.cdss.model.Disease;
+import com.ftn.cdss.model.Diagnosis
+import java.util.stream.Collectors
+import java.util.List;
+
+rule "Low oxygen level in blood!"
+    when
+        ICUPatient($ssn: ssn, bloodOxygenLevel < 70)
+        not(
+            BloodOxygenLevelChangeEvent($ssn == ssn, $change: change, change > 0 )
+            over window:time(15m)
+        )
+    then
+        insert(new LowOxygenLevelEvent($ssn));
+        drools.halt();
+end
+
+
+rule "Accelerated heartbeat!"
+    when
+        ICUPatient($ssn: ssn)
+        $hb1: HeartBeatEvent(ssn==$ssn)
+        Number(intValue > 25) from accumulate(
+            $hb2: HeartBeatEvent(
+                this != $hb1,
+                ssn == $ssn,
+                this meets[10s] $hb1
+            ),
+            count($hb2)
+        )
+    then
+        insert(new AcceleratedHeartbeatEvent($ssn));
+        drools.halt();
+end
+
+rule "Dialysis needed!"
+    when
+        ICUPatient($ssn: ssn)
+        $chart: MedicalChart(ssn == $ssn)
+        $hb1: HeartBeatEvent(ssn==$ssn)
+        $ue1: UrineEvent(ssn==$ssn)
+
+        Number(intValue > 10) from accumulate(
+            $hb2: HeartBeatEvent(
+                this != $hb1,
+                ssn == $ssn,
+                this meets[10s] $hb1
+            ),
+            count($hb2)
+        )
+
+        $total: Number(intValue < 100) from accumulate(
+                    UrineEvent(
+                        ssn == $ssn,
+                        $urineMl: change
+                    ) over window:time(12h),
+                    sum($urineMl)
+                )
+
+    then
+
+        final List<String> diseaseNames = $chart.getDiagnosis().stream().map(
+                diagnosis -> diagnosis.getDisease().getName()).collect(Collectors.toList());
+
+        if(diseaseNames.contains("Hronična bubrežna bolest")){
+
+            insert(new DialysisNeededEvent($ssn));
+            drools.halt();
+        }
+
+end
