@@ -27,6 +27,7 @@ import {DoctorListComponent} from './component/doctors/doctor-list/doctor-list.c
 import {DoctorsPageComponent} from './component/doctors/doctors-page/doctors-page.component';
 import {DoctorService} from "./service/doctor-service/doctor.service";
 import { DiseaseCardComponent } from './component/disease-card/disease-card.component';
+import {DiseaseService} from "./service/disease-service/disease.service";
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { DiseaseCardComponent } from './component/disease-card/disease-card.comp
     MedicalChartService,
     DiagnosticService,
     DoctorService,
+    DiseaseService,
     HttpClient,
     CanActivateAuthGuard,
     CanActivateAdminGuard,

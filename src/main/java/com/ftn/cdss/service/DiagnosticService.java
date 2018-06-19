@@ -1,16 +1,16 @@
 package com.ftn.cdss.service;
 
-import com.ftn.cdss.model.Diagnosis;
-import com.ftn.cdss.model.Disease;
-import com.ftn.cdss.model.MedicalChart;
-import com.ftn.cdss.model.Symptom;
+import com.ftn.cdss.model.*;
 import com.ftn.cdss.model.rules.PossibleDisease;
+import com.ftn.cdss.repository.DiagnosisDao;
 import com.ftn.cdss.repository.MedicineDao;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class DiagnosticService {
@@ -23,19 +23,23 @@ public class DiagnosticService {
 
     private final MedicineDao medicineDao;
 
+    private final DiagnosisDao diagnosisDao;
+
     private final KieSession kieSession;
 
     @Autowired
     public DiagnosticService(MedicalChartService medicalChartService, DiseaseService diseaseService,
-                             DoctorService doctorService, MedicineDao medicineDao, KieSession kieSession) {
+                             DoctorService doctorService, MedicineDao medicineDao,
+                             DiagnosisDao diagnosisDao, KieSession kieSession) {
         this.medicalChartService = medicalChartService;
         this.diseaseService = diseaseService;
         this.doctorService = doctorService;
         this.medicineDao = medicineDao;
+        this.diagnosisDao = diagnosisDao;
         this.kieSession = kieSession;
     }
 
-    public Disease diagnose(List<Symptom> symptomList, Long chartId) {
+    public Disease calculate(List<Symptom> symptomList, Long chartId) {
 
         final MedicalChart medicalChart = medicalChartService.findOne(chartId);
         final PossibleDisease possibleDisease = new PossibleDisease();
@@ -54,5 +58,19 @@ public class DiagnosticService {
         kieSession.destroy();
 
         return diseaseService.findByName(possibleDisease.getName());
+    }
+
+    public Diagnosis diagnose(Diagnosis diagnosis, Long chartId) {
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Doctor doctor = doctorService.findByUsername(username);
+        diagnosis.setDoctor(doctor);
+
+        MedicalChart medicalChart = medicalChartService.findOne(chartId);
+        medicalChart.getDiagnosis().add(diagnosis);
+
+        diagnosis.setMedicalChart(medicalChart);
+        medicalChartService.update(medicalChart);
+        return diagnosis;
     }
 }

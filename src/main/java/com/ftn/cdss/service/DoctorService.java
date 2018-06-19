@@ -50,4 +50,9 @@ public class DoctorService {
         return doctorDao.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("Doctor not found!"));
     }
+
+    public Doctor findByUsername(String username) {
+        return doctorDao.findByAccount_Username(username).orElseThrow(() ->
+                new EntityNotFoundException("Doctor not found!"));
+    }
 }

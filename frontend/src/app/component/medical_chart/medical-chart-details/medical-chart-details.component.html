@@ -32,6 +32,26 @@
       </form>
 
       <hr/>
+
+      <form novalidate id="diagnosisForm" [formGroup]="diagnosisForm">
+        <div class="form-group">
+          <h4>Uspostavi dijagnozu</h4>
+          <label for="selectedDisease">Izaberi bolest</label>
+          <div class="col-xs-5 selectContainer">
+            <select class="form-control" id="selectedDisease" formControlName="selectedDisease">
+              <option *ngFor="let d of diseases" value="{{d.id}}" [selected]="true">tip: {{d.type}} {{d.name}}</option>
+            </select>
+          </div>
+          <div class="invalid-feedback"
+               *ngIf="selectedDisease.errors && (selectedDisease.dirty || selectedDisease.touched)">
+            <p *ngIf="selectedDisease.errors.required">Odaberite bolest!.</p>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="setDiagnosis(selectedDisease.value)"
+                [disabled]="diagnosisForm.invalid">Uspostavi dijagnozu
+        </button>
+      </form>
+
     </div>
     <div class="col-sm-3">
       <app-disease-card *ngIf="calculatedDisease" [disease]="calculatedDisease"></app-disease-card>

@@ -17,6 +17,10 @@ INSERT INTO public.permission (permission_id, name)
 VALUES (5, 'diagnose');
 INSERT INTO public.permission (permission_id, name)
 VALUES (6, 'crudDoctor');
+INSERT INTO public.permission (permission_id, name)
+VALUES (7, 'readDiseases');
+INSERT INTO public.permission (permission_id, name)
+VALUES (8, 'crudDiseases');
 
 --ROLE_PERMISSIONS
 INSERT INTO public.role_permissions (role_id, permission_id)
@@ -31,6 +35,12 @@ INSERT INTO public.role_permissions (role_id, permission_id)
 VALUES (2, 5);
 INSERT INTO public.role_permissions (role_id, permission_id)
 VALUES (2, 6);
+INSERT INTO public.role_permissions (role_id, permission_id)
+VALUES (2, 7);
+INSERT INTO public.role_permissions (role_id, permission_id)
+VALUES (1, 8);
+INSERT INTO public.role_permissions (role_id, permission_id)
+VALUES (1, 7);
 
 -- SYMPTOMS
 INSERT INTO public.symptoms (symptom_id, name)

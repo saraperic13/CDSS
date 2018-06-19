@@ -6,6 +6,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DiagnosticService} from "../../../service/diagnostic-service/diagnostic.service";
 import {Symptom} from "../../../domain/Symptom";
 import {Disease} from "../../../domain/Disease";
+import {Diagnosis} from "../../../domain/Diagnosis";
+import {DiseaseService} from "../../../service/disease-service/disease.service";
 
 @Component({
   selector: 'app-medical-chart-details',
@@ -19,13 +21,19 @@ export class MedicalChartDetailsComponent implements OnInit {
   calculatedDisease: Disease;
   noDiseaseCalculated: boolean = false;
 
+  diseases: Disease[];
+
   form: FormGroup;
   symptoms: FormControl;
+
+  diagnosisForm: FormGroup;
+  selectedDisease: FormControl;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private medicalChartService: MedicalChartService,
-              private diagnosticService: DiagnosticService) {
+              private diagnosticService: DiagnosticService,
+              private diseaseService: DiseaseService) {
   }
 
   ngOnInit() {
@@ -36,12 +44,18 @@ export class MedicalChartDetailsComponent implements OnInit {
     });
 
     this.createForm();
+    this.getAllDiseases();
   }
 
   createForm() {
     this.symptoms = new FormControl('', [Validators.required]);
     this.form = new FormGroup({
       symptoms: this.symptoms
+    });
+
+    this.selectedDisease = new FormControl();
+    this.diagnosisForm = new FormGroup({
+      selectedDisease: this.selectedDisease
     });
   }
 
@@ -63,7 +77,6 @@ export class MedicalChartDetailsComponent implements OnInit {
       let symptom = new Symptom(sympList[0], sympList[1]);
       symptoms.push(symptom);
     }
-    // let commonSymptoms: Symptoms = new Symptoms(symptomsString.split(","));
     this.diagnosticService.diagnose(symptoms, this.chart.id).subscribe(res => {
         this.calculatedDisease = res;
         this.noDiseaseCalculated = false;
@@ -71,6 +84,31 @@ export class MedicalChartDetailsComponent implements OnInit {
       error => {
         this.noDiseaseCalculated = true;
       });
+  }
+
+  getAllDiseases() {
+    this.diseaseService.getAll().subscribe(res => {
+      this.diseases = res;
+    });
+  }
+
+  setDiagnosis(diseaseId: number) {
+
+    let diagnosis: Diagnosis = new Diagnosis();
+    diagnosis.diseaseId = diseaseId;
+    diagnosis.symptomsInput = this.symptoms.value;
+
+    this.diagnosticService.setDiagnosis(diagnosis, this.chart.id).subscribe(res => {
+        console.log(res);
+
+      },
+      error => {
+      });
+  }
+
+  resetForms() {
+    this.form.reset();
+    this.diagnosisForm.reset();
   }
 
 }

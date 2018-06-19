@@ -1,8 +1,11 @@
 package com.ftn.cdss.controller;
 
+import com.ftn.cdss.controller.converter.DiagnosisConverter;
 import com.ftn.cdss.controller.converter.DiseaseConverter;
 import com.ftn.cdss.controller.converter.SymptomsConverter;
+import com.ftn.cdss.controller.dto.DiagnosisDto;
 import com.ftn.cdss.controller.dto.SymptomDto;
+import com.ftn.cdss.model.Diagnosis;
 import com.ftn.cdss.model.Disease;
 import com.ftn.cdss.model.Symptom;
 import com.ftn.cdss.service.DiagnosticService;
@@ -29,13 +32,25 @@ public class DiagnosticController {
     }
 
     @PreAuthorize("hasAuthority('diagnose')")
+    @PostMapping(value = "/calculate/{chartId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity calculate(@RequestBody @Valid List<SymptomDto> symptomsDto, @PathVariable Long chartId) {
+
+        List<Symptom> symptomList = SymptomsConverter.fromDto(symptomsDto);
+        final Disease disease = this.diagnosticService.calculate(symptomList, chartId);
+        return new ResponseEntity<>(DiseaseConverter.toDto(disease), HttpStatus.CREATED);
+    }
+
+
+    @PreAuthorize("hasAuthority('diagnose')")
     @PostMapping(value = "/{chartId}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity diagnose(@RequestBody @Valid List<SymptomDto> symptomsDto, @PathVariable Long chartId) {
+    public ResponseEntity diagnose(@RequestBody @Valid DiagnosisDto diagnosisDto, @PathVariable Long chartId) {
 
-        List<Symptom> symptomList = SymptomsConverter.fromDto(symptomsDto);
-        final Disease disease = this.diagnosticService.diagnose(symptomList, chartId);
-        return new ResponseEntity<>(DiseaseConverter.toDto(disease), HttpStatus.CREATED);
+        Diagnosis diagnosis = DiagnosisConverter.fromDto(diagnosisDto);
+        diagnosis = this.diagnosticService.diagnose(diagnosis, chartId);
+        return new ResponseEntity<>(DiagnosisConverter.toDto(diagnosis), HttpStatus.CREATED);
     }
 }
