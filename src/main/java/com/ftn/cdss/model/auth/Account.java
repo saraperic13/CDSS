@@ -34,7 +34,7 @@ public class Account {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToOne
-    private Doctor doctor;
+//    @OneToOne
+//    private Doctor doctor;
 
 }

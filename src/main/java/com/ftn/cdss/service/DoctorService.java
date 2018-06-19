@@ -34,8 +34,11 @@ public class DoctorService {
     }
 
     public Doctor update(Doctor doctor) {
-        findOne(doctor.getId());
-        return doctorDao.save(doctor);
+        final Doctor doctorDb = findOne(doctor.getId());
+        doctorDb.setLicenceId(doctor.getLicenceId());
+        doctorDb.setSurname(doctor.getSurname());
+        doctorDb.setName(doctor.getName());
+        return doctorDao.save(doctorDb);
     }
 
     public void delete(Long id) {

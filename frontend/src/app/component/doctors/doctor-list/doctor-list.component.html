@@ -1,0 +1,24 @@
+<table class="table-sm table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">LICENCE ID</th>
+    <th scope="col">NAME</th>
+    <th scope="col">SURNAME</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let doc of doctors;let idx = index">
+    <td scope="row">{{idx+1}}</td>
+    <td scope="row">{{doc.licenceId}}</td>
+    <td scope="row">{{doc.name}}</td>
+    <td scope="row">{{doc.surname}}</td>
+    <td scope="row">
+      <button href="#" (click)="update(doc)" class="btn btn-warning ">E</button>
+    </td>
+    <td scope="row">
+      <button (click)="delete(doc.id)" class="btn btn-danger">X</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

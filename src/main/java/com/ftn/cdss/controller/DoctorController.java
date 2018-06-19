@@ -40,11 +40,11 @@ public class DoctorController {
     @PreAuthorize("hasAuthority('crudDoctor')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity update(@RequestBody @Valid DoctorDto doctorDto) {
+    public ResponseEntity update(@RequestBody DoctorDto doctorDto) {
 
         Doctor doctor = DoctorConverter.fromDto(doctorDto);
         doctor = this.doctorService.update(doctor);
-        return new ResponseEntity<>(DoctorConverter.toDto(doctor), HttpStatus.CREATED);
+        return new ResponseEntity<>(DoctorConverter.toDto(doctor), HttpStatus.OK);
     }
 
 

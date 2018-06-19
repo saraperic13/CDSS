@@ -1,0 +1,17 @@
+<div class="containter">
+  <div class="row"style="margin-top: 2%">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-6">
+      <h5>Medical Charts</h5>
+      <app-doctor-list [doctors]="doctors"
+                              (doctorDeleted)="onDeleted($event)"
+                              (doctorUpdateClicked)="onUpdateClicked($event)"></app-doctor-list>
+    </div>
+    <div class="col-sm-4">
+      <app-doctor-form [doctorToUpdate]="doctorToUpdate"
+                              (updated)="onUpdate($event)"
+                              (created)="onDeleted($event)"></app-doctor-form>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</div>

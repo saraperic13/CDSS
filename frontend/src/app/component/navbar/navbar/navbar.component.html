@@ -14,6 +14,10 @@
         <a class="nav-link" routerLink="/medical_charts">Medical Charts</a>
       </li>
 
+      <li *ngIf="userIsAdmin()" class="nav-item active">
+        <a class="nav-link" routerLink="/doctors">Doctors</a>
+      </li>
+
     </ul>
   </div>
 

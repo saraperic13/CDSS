@@ -1,0 +1,73 @@
+<h5 class="title">Doctor</h5>
+
+<form id="form" novalidate [formGroup]="form" (ngSubmit)="save(name.value, surname.value, licenceId.value,
+                                                                  username.value, password.value)">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" formControlName="name" id="name" placeholder="Enter a name" [ngClass]="{
+            'form-control is-invalid': name.invalid && (name.dirty || name.touched),
+            'form-control is-valid': name.valid && (name.dirty || name.touched),
+            'form-control':true
+          }">
+
+    <div class="invalid-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+      <p *ngIf="name.errors">Name is required!</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="surname">Surname</label>
+    <input type="text" formControlName="surname" id="surname" placeholder="Enter a surname " [ngClass]="{
+            'form-control is-invalid': surname.invalid && (surname.dirty || surname.touched),
+            'form-control is-valid': surname.valid && (surname.dirty || surname.touched),
+            'form-control':true
+          }">
+
+    <div class="invalid-feedback" *ngIf="surname.errors && (surname.dirty || surname.touched)">
+      <p *ngIf="surname.errors.required">Surname is required!</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="licenceId">Licence Id</label>
+    <input type="text" formControlName="licenceId" id="licenceId" placeholder="Licence id" [ngClass]="{
+            'form-control is-invalid': licenceId.invalid && (licenceId.dirty || licenceId.touched),
+            'form-control is-valid': licenceId.valid && (licenceId.dirty || licenceId.touched),
+            'form-control':true
+          }">
+
+    <div class="invalid-feedback" *ngIf="licenceId.errors && (licenceId.dirty || licenceId.touched)">
+      <p *ngIf="licenceId.errors.required">Licence id is required!</p>
+    </div>
+  </div>
+
+  <div *ngIf="!isEditing" class="form-group">
+    <label for="username">Username</label>
+    <input type="text" formControlName="username" id="username" placeholder="Enter username " [ngClass]="{
+            'form-control is-invalid': username.invalid && (username.dirty || username.touched),
+            'form-control is-valid': username.valid && (username.dirty || username.touched),
+            'form-control':true
+          }">
+
+    <div class="invalid-feedback" *ngIf="username.errors && (username.dirty || username.touched)">
+      <p *ngIf="username.errors">Username is required and must contain between 6 and 40 characters</p>
+    </div>
+  </div>
+
+  <div *ngIf="!isEditing" class="form-group">
+    <label for="password">Password</label>
+    <input type="text" formControlName="password" id="password" placeholder="Enter password " [ngClass]="{
+            'form-control is-invalid': password.invalid && (password.dirty || password.touched),
+            'form-control is-valid': password.valid && (password.dirty || password.touched),
+            'form-control':true
+          }">
+
+    <div class="invalid-feedback" *ngIf="password.errors && (password.dirty || password.touched)">
+      <p *ngIf="password.errors">Password is required and must contain between 6 and 40 characters</p>
+    </div>
+  </div>
+
+  <button id="save" type="submit" class="btn btn-success" [disabled]="form.invalid">Save</button>
+
+</form>
+

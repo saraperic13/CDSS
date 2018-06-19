@@ -1,17 +1,18 @@
-import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/";
 import {MedicalChart} from "../../domain/MedicalChart";
+import {Injectable} from "@angular/core";
+import {Doctor} from "../../domain/Doctor";
 
 @Injectable()
-export class MedicalChartService {
+export class DoctorService {
 
-  private readonly path = 'http://localhost:8080/api/medical_charts';
+  private readonly path = 'http://localhost:8080/api/doctors';
 
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<MedicalChart[]> {
+  getAll(): Observable<Doctor[]> {
 
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
 
@@ -23,11 +24,11 @@ export class MedicalChartService {
     });
   }
 
-  getOne(chartId: number): Observable<MedicalChart> {
+  getOne(id: number): Observable<Doctor> {
 
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-    return this.http.get(this.path + "/" + chartId, {headers}).map((response: any) => {
+    return this.http.get(this.path + "/" + id, {headers}).map((response: any) => {
       return response;
 
     }).catch((error: any) => {
@@ -35,10 +36,10 @@ export class MedicalChartService {
     });
   }
 
-  add(chartParams: MedicalChart): Observable<MedicalChart[]> {
+  add(doctorParams: Doctor): Observable<Doctor> {
 
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.post(this.path, chartParams, {headers}).map((response: any) => {
+    return this.http.post(this.path, doctorParams, {headers}).map((response: any) => {
       return response;
 
     }).catch((error: any) => {
@@ -46,11 +47,11 @@ export class MedicalChartService {
     });
   }
 
-  delete(chartId: number) {
+  delete(id: number) {
 
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    console.log(JSON.stringify(chartId));
-    return this.http.delete(this.path + "/" + chartId, {headers}).map((response: any) => {
+    console.log(JSON.stringify(id));
+    return this.http.delete(this.path + "/" + id, {headers}).map((response: any) => {
       return response;
 
     }).catch((error: any) => {
@@ -58,9 +59,9 @@ export class MedicalChartService {
     });
   }
 
-  update(chart: MedicalChart) {
+  update(doctor: Doctor) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.put(this.path, chart, {headers}).map((response: any) => {
+    return this.http.put(this.path, doctor, {headers}).map((response: any) => {
       return response;
 
     }).catch((error: any) => {
