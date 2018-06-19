@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class DiagnosticService {
@@ -67,9 +66,12 @@ public class DiagnosticService {
         diagnosis.setDoctor(doctor);
 
         MedicalChart medicalChart = medicalChartService.findOne(chartId);
-        medicalChart.getDiagnosis().add(diagnosis);
 
         diagnosis.setMedicalChart(medicalChart);
+        diagnosis = diagnosisDao.save(diagnosis);
+
+        medicalChart.getDiagnosis().add(diagnosis);
+
         medicalChartService.update(medicalChart);
         return diagnosis;
     }
