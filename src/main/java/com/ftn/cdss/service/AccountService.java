@@ -1,7 +1,9 @@
 package com.ftn.cdss.service;
 
+import com.ftn.cdss.model.Doctor;
 import com.ftn.cdss.model.auth.Account;
 import com.ftn.cdss.repository.AccountDao;
+import com.ftn.cdss.repository.DoctorDao;
 import com.ftn.cdss.repository.RoleDao;
 import com.ftn.cdss.security.TokenUtils;
 import com.ftn.cdss.security.UserDetailsServiceImpl;
@@ -19,6 +21,8 @@ public class AccountService {
 
     private final AccountDao accountDao;
 
+    private final DoctorDao doctorDao;
+
     private final RoleDao roleDao;
 
     private final AuthenticationManager authenticationManager;
@@ -30,9 +34,10 @@ public class AccountService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public AccountService(AccountDao accountDao, RoleDao roleDao, AuthenticationManager authenticationManager,
+    public AccountService(AccountDao accountDao, DoctorDao doctorDao, RoleDao roleDao, AuthenticationManager authenticationManager,
                           UserDetailsServiceImpl userDetailsService, TokenUtils tokenUtils) {
         this.accountDao = accountDao;
+        this.doctorDao = doctorDao;
         this.roleDao = roleDao;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
@@ -74,11 +79,20 @@ public class AccountService {
             admin.getRoles().add(roleDao.getOne(1L));
             accountDao.save(admin);
 
-            final Account doctor = new Account();
+            Account doctor = new Account();
             doctor.setUsername("drAca");
             doctor.setPassword(passwordEncoder.encode("#acajecaR1"));
             doctor.getRoles().add(roleDao.getOne(2L));
-            accountDao.save(doctor);
+            doctor = accountDao.save(doctor);
+
+            final Doctor doc = new Doctor();
+            doc.setId(1L);
+            doc.setName("Dr. Aca");
+            doc.setSurname("Petrov");
+            doc.setLicenceId("licence1234");
+            doc.setAccount(doctor);
+            doctorDao.save(doc);
+
         }
     }
 }

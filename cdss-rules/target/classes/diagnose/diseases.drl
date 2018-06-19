@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Arrays;
 import com.ftn.cdss.model.rules.PossibleDisease;
 import com.ftn.cdss.model.Symptom;
+import com.ftn.cdss.model.Diagnosis;
 import com.ftn.cdss.model.Disease;
 import com.ftn.cdss.model.rules.FoundDisease;
 import com.ftn.cdss.model.rules.FoundDiseases;
 import java.util.Collections;
 import com.ftn.cdss.util.DetectedDiseasesComparator;
+import com.ftn.cdss.util.DateUtil;
 
 rule "sara"
     agenda-group "symptoms"
@@ -31,7 +33,6 @@ rule "Prehlada"
        )
     then
         final FoundDisease foundDisease = new FoundDisease();
-        foundDisease.setDiseaseId(1L);
         foundDisease.setNumOfSymptoms(5);
         foundDisease.setNumOfFulfilled($listSize);
         foundDisease.setDiseaseName("Prehlada");
@@ -54,13 +55,66 @@ rule "Groznica"
        )
     then
         final FoundDisease foundDisease = new FoundDisease();
-        foundDisease.setDiseaseId(2L);
         foundDisease.setNumOfSymptoms(7);
         foundDisease.setNumOfFulfilled($listSize);
         foundDisease.setDiseaseName("Groznica");
 
         insert(foundDisease);
 end
+
+rule "Upala krajnika"
+    agenda-group "symptoms"
+    when
+        $list: ArrayList($listSize: size>=4) from collect (
+            Symptom("bol u grlu" contains name.toLowerCase()
+                    ||"bol koji se širi do ušiju" contains name.toLowerCase()
+                    || "glavobolja" contains name.toLowerCase()
+                    || "temperatura" contains name.toLowerCase() && value > 40 && value < 41
+                    || "drhtavica" contains name.toLowerCase()
+                    || "gubitak apetita" contains name.toLowerCase()
+                    || "umor" contains name.toLowerCase()
+                    || "žuti sekret iz nosa" contains name.toLowerCase()
+            )
+        )
+    then
+         final FoundDisease foundDisease = new FoundDisease();
+         foundDisease.setNumOfSymptoms(8);
+         foundDisease.setNumOfFulfilled($listSize);
+         foundDisease.setDiseaseName("Upala krajnika");
+
+        insert(foundDisease);
+end
+
+rule "Sinusna infekcija"
+    agenda-group "symptoms"
+    when
+        $n2:Number() from accumulate(Diagnosis((disease.getName().equals("Prehlada")
+                                               || disease.getName().equals("Groznica"))
+                                               && date < DateUtil.addDate(new Date(), "d", 60)),
+                      init(int num = 0;),
+                      action(num = 1;),
+                      result(num)
+                    )
+        $list: ArrayList($listSize: size, ((int)$listSize + $n2)>=4) from collect (
+                    Symptom("oticanje oko očiju" contains name.toLowerCase()
+                            ||"glavobolja" contains name.toLowerCase()
+                            || "žuti sekret iz nosa" contains name.toLowerCase()
+                            || "bol u grlu" contains name.toLowerCase()
+                            || "temperatura" contains name.toLowerCase() && value > 38
+                            || "kašalj" contains name.toLowerCase()
+                    )
+                )
+    then
+        System.out.println($n2);
+         final FoundDisease foundDisease = new FoundDisease();
+         foundDisease.setNumOfSymptoms(7);
+         foundDisease.setNumOfFulfilled($listSize + (int)$n2);
+         foundDisease.setDiseaseName("Sinusna infekcija");
+
+         insert(foundDisease);
+end
+
+
 
 
 rule "Found diseses list does not exist"
@@ -95,7 +149,16 @@ rule "Possible diseases"
     when
         $diseases: FoundDiseases()
     then
+        for(Object d1: $diseases.getDiseases()){
+                            FoundDisease disease1 = (FoundDisease)d1;
+                            System.out.println("BOLEEEST " + disease1.getDiseaseName() + " "
+                            + disease1.getNumOfSymptoms().toString()
+                            + " " + disease1.getNumOfFulfilled().toString());
+
+                        }
+
         Collections.sort($diseases.getDiseases(), new DetectedDiseasesComparator());
+
         for(Object d2: $diseases.getDiseases()){
                     FoundDisease disease = (FoundDisease)d2;
                     System.out.println("BOLEEEST 2222 " + disease.getDiseaseName() + " "

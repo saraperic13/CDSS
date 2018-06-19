@@ -40,7 +40,7 @@ public class Diagnosis {
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    @JoinTable(name="diagnosis_medicines",
+    @JoinTable(name = "diagnosis_medicines",
             joinColumns = @JoinColumn(name = "diagnosis_id", referencedColumnName = "diagnosis_id"),
             inverseJoinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id"))
     Set<Medicine> medicines = new HashSet<>();

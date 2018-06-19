@@ -1,5 +1,6 @@
 package com.ftn.cdss.service;
 
+import com.ftn.cdss.model.Diagnosis;
 import com.ftn.cdss.model.Disease;
 import com.ftn.cdss.model.MedicalChart;
 import com.ftn.cdss.model.Symptom;
@@ -46,7 +47,9 @@ public class DiagnosticService {
         for (Symptom s : symptomList) {
             kieSession.insert(s);
         }
-        kieSession.insert(medicalChart);
+        for (Diagnosis d : medicalChart.getDiagnosis()) {
+            kieSession.insert(d);
+        }
         kieSession.insert(possibleDisease);
 
         kieSession.getAgenda().getAgendaGroup("symptoms").setFocus();
