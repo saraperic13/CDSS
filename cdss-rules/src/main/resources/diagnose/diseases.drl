@@ -19,6 +19,7 @@ rule "sara"
         System.out.println("EEEEEJJJJ");
 end
 
+//---------------------------------FIRST TYPE--------------------------------------
 
 rule "Prehlada"
     agenda-group "symptoms"
@@ -114,6 +115,8 @@ rule "Sinusna infekcija"
 end
 
 
+//---------------------------------SECOND TYPE-------------------------------------------------------------------------
+
 rule "Hipertenzija"
     agenda-group "symptoms"
     when
@@ -149,6 +152,34 @@ rule "Dijabetes"
          insert(foundDisease);
 end
 
+//---------------------------------THIRD TYPE------------------------------------------------------------------
+
+rule "Hronična bubrežna bolest"
+    agenda-group "symptoms"
+    when
+        Number($n2:intValue >= 1) from accumulate(Diagnosis(disease.getName().equals("Dijabetes")
+                                                 || disease.getName().equals("Hipertenzija")
+                                                 && new Date() > DateUtil.addDate(date, "m", 6)),
+                      init(int num = 0;),
+                      action(num = 1;),
+                      result(num)
+                    )
+        $list: ArrayList($listSize: size, $listSize >= 2) from collect (
+                    Symptom("zamor" contains name.toLowerCase()
+                            ||"nocturia" contains name.toLowerCase()
+                            || "otoci nogu i zglobova" contains name.toLowerCase()
+                            || "gušenje" contains name.toLowerCase()
+                            || "bol u grudima" contains name.toLowerCase()
+                    )
+                )
+    then
+         final FoundDisease foundDisease = new FoundDisease();
+         foundDisease.setNumOfSymptoms(7);
+         foundDisease.setNumOfFulfilled($listSize + (int)$n2);
+         foundDisease.setDiseaseName("Hronična bubrežna bolest");
+
+         insert(foundDisease);
+end
 
 
 

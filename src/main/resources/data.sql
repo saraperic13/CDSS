@@ -104,11 +104,11 @@ VALUES (3, 'Upala krajnika', 0);
 INSERT INTO public.diseases (disease_id, name, disease_type)
 VALUES (4, 'Sinusna infekcija', 0);
 INSERT INTO public.diseases (disease_id, name, disease_type)
-VALUES (5, 'Sinusna infekcija', 1);
+VALUES (5, 'Hipertenzija', 1);
 INSERT INTO public.diseases (disease_id, name, disease_type)
 VALUES (6, 'Dijabetes', 1);
 INSERT INTO public.diseases (disease_id, name, disease_type)
-VALUES (7, 'Dijabetes', 2);
+VALUES (7, 'Hronična bubrežna bolest', 2);
 INSERT INTO public.diseases (disease_id, name, disease_type)
 VALUES (8, 'Akutna bubrežna povreda', 2);
 
