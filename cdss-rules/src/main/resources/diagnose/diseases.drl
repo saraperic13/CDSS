@@ -90,7 +90,7 @@ rule "Sinusna infekcija"
     when
         $n2:Number() from accumulate(Diagnosis((disease.getName().equals("Prehlada")
                                                || disease.getName().equals("Groznica"))
-                                               && date < DateUtil.addDate(new Date(), "d", 60)),
+                                               && new Date() < DateUtil.addDate(date, "d", 60)),
                       init(int num = 0;),
                       action(num = 1;),
                       result(num)
