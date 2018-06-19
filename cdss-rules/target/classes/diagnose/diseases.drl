@@ -10,6 +10,12 @@ import com.ftn.cdss.model.rules.FoundDiseases;
 import java.util.Collections;
 import com.ftn.cdss.util.DetectedDiseasesComparator;
 
+rule "sara"
+    when
+    then
+        System.out.println("EEEEEJJJJ");
+end
+
 
 rule "Prehlada"
     when
@@ -83,16 +89,7 @@ rule "Possible diseases"
     when
         $diseases: FoundDiseases()
     then
-//        for(Object d: $diseases.getDiseases()){
-//            FoundDisease disease = (FoundDisease)d;
-//            System.out.println("BOLEEEST " + disease.getDiseaseName() + " "
-//            + disease.getNumOfSymptoms().toString()
-//            + " " + disease.getNumOfFulfilled().toString());
-//
-//        }
-
         Collections.sort($diseases.getDiseases(), new DetectedDiseasesComparator());
-
         for(Object d2: $diseases.getDiseases()){
                     FoundDisease disease = (FoundDisease)d2;
                     System.out.println("BOLEEEST 2222 " + disease.getDiseaseName() + " "

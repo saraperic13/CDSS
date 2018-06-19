@@ -10,6 +10,12 @@ import com.ftn.cdss.model.rules.FoundDiseases;
 import java.util.Collections;
 import com.ftn.cdss.util.DetectedDiseasesComparator;
 
+rule "sara"
+    when
+    then
+        System.out.println("EEEEEJJJJ");
+end
+
 
 rule "Prehlada"
     when

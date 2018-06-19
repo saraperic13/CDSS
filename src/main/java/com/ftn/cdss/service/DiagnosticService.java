@@ -5,7 +5,6 @@ import com.ftn.cdss.model.MedicalChart;
 import com.ftn.cdss.model.Symptom;
 import com.ftn.cdss.model.rules.PossibleDisease;
 import com.ftn.cdss.repository.MedicineDao;
-import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,24 +22,21 @@ public class DiagnosticService {
 
     private final MedicineDao medicineDao;
 
-    private final KieContainer kieContainer;
+    private final KieSession kieSession;
 
     @Autowired
     public DiagnosticService(MedicalChartService medicalChartService, DiseaseService diseaseService,
-                             DoctorService doctorService, MedicineDao medicineDao, KieContainer kieContainer) {
+                             DoctorService doctorService, MedicineDao medicineDao, KieSession kieSession) {
         this.medicalChartService = medicalChartService;
         this.diseaseService = diseaseService;
         this.doctorService = doctorService;
         this.medicineDao = medicineDao;
-
-        this.kieContainer = kieContainer;
+        this.kieSession = kieSession;
     }
 
     public Disease diagnose(List<Symptom> symptomList, Long chartId) {
 
         final MedicalChart medicalChart = medicalChartService.findOne(chartId);
-
-        final KieSession kieSession = kieContainer.newKieSession();
         final List<Disease> diseases = diseaseService.getAll();
 
         final PossibleDisease possibleDisease = new PossibleDisease();
