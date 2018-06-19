@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.ftn.cdss.model.rules.PossibleDisease;
 import com.ftn.cdss.model.Symptom;
 import com.ftn.cdss.model.Diagnosis;
+import com.ftn.cdss.model.Medicine;
 import com.ftn.cdss.model.Disease;
 import com.ftn.cdss.model.rules.FoundDisease;
 import com.ftn.cdss.model.rules.FoundDiseases;
@@ -182,6 +183,52 @@ rule "Hronična bubrežna bolest"
 end
 
 
+rule "Akutna bubrežna povreda"
+    agenda-group "symptoms"
+    when
+        $oper: Number() from accumulate(Symptom(name.toLowerCase() contains "operacij"),
+                     init(int num = 0;),
+                     action(num = 1;),
+                     result(num)
+                   )
+        $temp: Number() from accumulate(Diagnosis(new Date() < DateUtil.addDate(date, "d", 14),
+                                                    $symptoms: disease.getCommonSymptoms()),
+                      init(int num = 0;),
+                      action(for(Object symptom:$symptoms){
+                                if(((Symptom)symptom).getName().equals("Temperatura")){
+                                    num = 1;
+                                }
+                            }),
+                      result(num)
+                    )
+        $ant: Number() from accumulate(Diagnosis(new Date() < DateUtil.addDate(date, "d", 21),
+                                                            $drugs: medicines),
+                              init(int num = 0;),
+                              action(for(Object drug:$drugs){
+                                        if(((Medicine)drug).getType().equals("Antibiotik")){
+                                            num = 1;
+                                            break;
+                                        }
+                                    }),
+                              result(num)
+                            )
+        ArrayList($listSize: size, $listSize >= 2) from collect (
+                    Symptom("zamor" contains name.toLowerCase()
+                            ||"dijareja" contains name.toLowerCase()
+                            || "otoci nogu i zglobova" contains name.toLowerCase()
+                            || "gušenje" contains name.toLowerCase()
+                    )
+                )
+    then
+         final FoundDisease foundDisease = new FoundDisease();
+         foundDisease.setNumOfSymptoms(7);
+         foundDisease.setNumOfFulfilled($listSize + (int)$oper + (int)$temp + (int)$ant);
+         foundDisease.setDiseaseName("Akutna bubrežna povreda");
+
+         insert(foundDisease);
+end
+
+//---------------------------------------------------------Diseases priorities---------------------------------------
 
 rule "Found diseses list does not exist"
     agenda-group "symptoms"

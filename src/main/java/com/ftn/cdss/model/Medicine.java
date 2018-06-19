@@ -25,6 +25,8 @@ public class Medicine {
 
     private String name;
 
+    private String type;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "medicine_ingredients",
             joinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id"),
