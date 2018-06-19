@@ -114,6 +114,42 @@ rule "Sinusna infekcija"
 end
 
 
+rule "Hipertenzija"
+    agenda-group "symptoms"
+    when
+        Number($n2:intValue >= 10) from accumulate($diag: Diagnosis(new Date() < DateUtil.addDate(date, "m", 6)
+                                                 && symptomsInput.toLowerCase() contains "visok pritisak"),
+                      count($diag)
+                    )
+    then
+         final FoundDisease foundDisease = new FoundDisease();
+         foundDisease.setNumOfSymptoms(1);
+         foundDisease.setNumOfFulfilled(1);
+         foundDisease.setDiseaseName("Hipertenzija");
+
+         insert(foundDisease);
+end
+
+rule "Dijabetes"
+    agenda-group "symptoms"
+    when
+        $list: ArrayList($listSize: size, $listSize==4) from collect (
+                    Symptom("često uriniranje" contains name.toLowerCase()
+                            ||"zamor" contains name.toLowerCase()
+                            || "gubitak telesne težine" contains name.toLowerCase()
+                            || "mučnina i povraćanje" contains name.toLowerCase()
+                    )
+                )
+    then
+         final FoundDisease foundDisease = new FoundDisease();
+         foundDisease.setNumOfSymptoms(4);
+         foundDisease.setNumOfFulfilled($listSize);
+         foundDisease.setDiseaseName("Dijabetes");
+
+         insert(foundDisease);
+end
+
+
 
 
 rule "Found diseses list does not exist"

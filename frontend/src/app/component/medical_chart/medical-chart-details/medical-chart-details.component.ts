@@ -58,7 +58,7 @@ export class MedicalChartDetailsComponent implements OnInit {
       let symptom = new Symptom(sympList[0], sympList[1]);
       symptoms.push(symptom);
     }
-    // let symptoms: Symptoms = new Symptoms(symptomsString.split(","));
+    // let commonSymptoms: Symptoms = new Symptoms(symptomsString.split(","));
     this.diagnosticService.diagnose(symptoms, this.chart.id).subscribe(res => {
       console.log(res);
     });

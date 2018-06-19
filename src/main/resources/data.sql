@@ -114,104 +114,104 @@ VALUES (8, 'Akutna bubrežna povreda', 2);
 
 --DISEASES _ SYMPTOMS
 
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (1, 1);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (1, 2);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (1, 3);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (1, 4);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (1, 5);
 
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (2, 4);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (2, 2);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (2, 5);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (2, 6);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (2, 1);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (2, 3);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (2, 7);
 
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (3, 2);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (3, 29);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (3, 3);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (3, 30);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (3, 7);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (3, 8);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (3, 9);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (3, 10);
 
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (4, 11);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (4, 3);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (4, 10);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (4, 2);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (4, 6);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (4, 5);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_specific_symptoms (disease_id, symptom_id)
 VALUES (4, 12);
 
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (5, 13);
 
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (6, 14);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (6, 15);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (6, 16);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (6, 17);
 
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (7, 16);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (7, 18);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (7, 20);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (7, 21);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (7, 22);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_specific_symptoms (disease_id, symptom_id)
 VALUES (7, 23);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_specific_symptoms (disease_id, symptom_id)
 VALUES (7, 24);
 
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_specific_symptoms (disease_id, symptom_id)
 VALUES (8, 25);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (8, 16);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (8, 21);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (8, 20);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_common_symptoms (disease_id, symptom_id)
 VALUES (8, 26);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_specific_symptoms (disease_id, symptom_id)
 VALUES (8, 27);
-INSERT INTO public.disease_symptoms (disease_id, symptom_id)
+INSERT INTO public.disease_specific_symptoms (disease_id, symptom_id)
 VALUES (8, 28);
 
 

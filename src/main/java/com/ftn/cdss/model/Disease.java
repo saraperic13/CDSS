@@ -27,8 +27,14 @@ public class Disease {
     private DiseaseType diseaseType;
 
     @ManyToMany(cascade = CascadeType.REFRESH)
-    @JoinTable(name = "disease_symptoms",
+    @JoinTable(name = "disease_common_symptoms",
             joinColumns = @JoinColumn(name = "disease_id", referencedColumnName = "disease_id"),
             inverseJoinColumns = @JoinColumn(name = "symptom_id", referencedColumnName = "symptom_id"))
-    private Set<Symptom> symptoms = new HashSet<>();
+    private Set<Symptom> commonSymptoms = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.REFRESH)
+    @JoinTable(name = "disease_specific_symptoms",
+            joinColumns = @JoinColumn(name = "disease_id", referencedColumnName = "disease_id"),
+            inverseJoinColumns = @JoinColumn(name = "symptom_id", referencedColumnName = "symptom_id"))
+    private Set<Symptom> specificSymptoms = new HashSet<>();
 }

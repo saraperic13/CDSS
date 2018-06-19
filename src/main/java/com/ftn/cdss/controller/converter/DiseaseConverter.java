@@ -17,10 +17,10 @@ public class DiseaseConverter {
         diseaseDto.setId(disease.getId());
         diseaseDto.setName(disease.getName());
 
-//        final List<SymptomDto> symptoms = disease.getSymptoms()
+//        final List<SymptomDto> commonSymptoms = disease.getCommonSymptoms()
 //                .stream().map(Symptom::getName).collect(Collectors.toList());
 //
-//        diseaseDto.setSymptoms(new SymptomsDto(symptoms));
+//        diseaseDto.setCommonSymptoms(new SymptomsDto(commonSymptoms));
 
         return diseaseDto;
     }

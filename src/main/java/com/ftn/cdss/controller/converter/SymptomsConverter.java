@@ -28,7 +28,7 @@ public class SymptomsConverter {
 //
 //        final List<Symptom> symptomList = new ArrayList<>();
 //        Symptom symp;
-//        for (String symptom : symptomsDto.getSymptoms()) {
+//        for (String symptom : symptomsDto.getCommonSymptoms()) {
 //            symp = new Symptom();
 //            symp.setName(symptom.trim());
 //            symptomList.add(symp);
