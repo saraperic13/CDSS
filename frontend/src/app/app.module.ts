@@ -26,8 +26,13 @@ import {DoctorFormComponent} from './component/doctors/doctor-form/doctor-form.c
 import {DoctorListComponent} from './component/doctors/doctor-list/doctor-list.component';
 import {DoctorsPageComponent} from './component/doctors/doctors-page/doctors-page.component';
 import {DoctorService} from "./service/doctor-service/doctor.service";
-import { DiseaseCardComponent } from './component/disease-card/disease-card.component';
+import {DiseaseCardComponent} from './component/disease-card/disease-card.component';
 import {DiseaseService} from "./service/disease-service/disease.service";
+import {MedicineListComponent} from './component/medicine/medicine-list/medicine-list.component';
+import {MedicineFormComponent} from './component/medicine/medicine-form/medicine-form.component';
+import {MedicinePageComponent} from './component/medicine/medicine-page/medicine-page.component';
+import {MedicineService} from "./service/medicine-service/medicine.service";
+import {IngredientService} from "./service/ingredient-service/ingredient.service";
 
 
 @NgModule({
@@ -44,7 +49,10 @@ import {DiseaseService} from "./service/disease-service/disease.service";
     DoctorFormComponent,
     DoctorListComponent,
     DoctorsPageComponent,
-    DiseaseCardComponent
+    DiseaseCardComponent,
+    MedicineListComponent,
+    MedicineFormComponent,
+    MedicinePageComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +69,8 @@ import {DiseaseService} from "./service/disease-service/disease.service";
     DiagnosticService,
     DoctorService,
     DiseaseService,
+    MedicineService,
+    IngredientService,
     HttpClient,
     CanActivateAuthGuard,
     CanActivateAdminGuard,

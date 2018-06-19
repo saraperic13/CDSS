@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/medicine")
+@RequestMapping("/api/medicines")
 public class MedicineController {
 
     private final MedicineService medicineService;
@@ -27,7 +27,7 @@ public class MedicineController {
         this.medicineService = medicineService;
     }
 
-    @PreAuthorize("hasAuthority('readMedicine')")
+    @PreAuthorize("hasAuthority('readDrug')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAll() {
 
@@ -36,7 +36,7 @@ public class MedicineController {
         return new ResponseEntity<>(medicineDtos, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('crudMedicine')")
+    @PreAuthorize("hasAuthority('crudDrug')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity create(@RequestBody @Valid MedicineDto medicineDto) {
@@ -46,17 +46,17 @@ public class MedicineController {
         return new ResponseEntity<>(MedicineConverter.toDto(medicine), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('crudMedicine')")
+    @PreAuthorize("hasAuthority('crudDrug')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity update(@RequestBody @Valid MedicineDto medicineDto) {
 
         Medicine medicine = MedicineConverter.fromDto(medicineDto);
         medicine = this.medicineService.update(medicine);
-        return new ResponseEntity<>(MedicineConverter.toDto(medicine), HttpStatus.CREATED);
+        return new ResponseEntity<>(MedicineConverter.toDto(medicine), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('crudMedicine')")
+    @PreAuthorize("hasAuthority('crudDrug')")
     @DeleteMapping(value = "/{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity delete(@PathVariable Long id) {

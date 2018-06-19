@@ -44,7 +44,7 @@ public class MedicalChartController {
 
         MedicalChart medicalChart = MedicalChartConverter.fromDto(medicalChartDto);
         medicalChart = this.medicalChartService.update(medicalChart);
-        return new ResponseEntity<>(MedicalChartConverter.toDto(medicalChart), HttpStatus.CREATED);
+        return new ResponseEntity<>(MedicalChartConverter.toDto(medicalChart), HttpStatus.OK);
     }
 
 

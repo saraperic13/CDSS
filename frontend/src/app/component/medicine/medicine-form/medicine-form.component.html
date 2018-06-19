@@ -1,0 +1,35 @@
+<h5 class="title">Novi lek</h5>
+
+<form novalidate id="medicineForm" [formGroup]="form">
+
+  <div class="form-group">
+    <label for="name">Ime</label>
+    <input type="text" formControlName="name" id="name" placeholder="Unesite ime leka" [ngClass]="{
+            'form-control is-invalid': name.invalid && (name.dirty || name.touched),
+            'form-control is-valid': name.valid && (name.dirty || name.touched),
+            'form-control':true
+          }">
+
+    <div class="invalid-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+      <p *ngIf="name.errors.required">Ime je obavezno!</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="selectedType">Izaberi tip</label>
+    <div class="col-xs-5 selectContainer">
+      <select class="form-control" id="selectedType" formControlName="selectedType">
+        <option value=0 [selected]="true"> Antibiotik</option>
+        <option value=1> Analgetik</option>
+        <option value=2>Drugo</option>
+      </select>
+    </div>
+    <div class="invalid-feedback"
+         *ngIf="selectedType.errors && (selectedType.dirty || selectedType.touched)">
+      <p *ngIf="selectedType.errors.required">Odaberite tip leka!.</p>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-success" (click)="save()" [disabled]="form.invalid">Sačuvaj</button>
+</form>
+

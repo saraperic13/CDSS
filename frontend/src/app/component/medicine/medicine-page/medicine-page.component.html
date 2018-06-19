@@ -1,0 +1,17 @@
+<div class="containter">
+  <div class="row"style="margin-top: 2%">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-6">
+      <h5>Lekovi</h5>
+      <app-medicine-list [medicines]="medicines"
+                              (medicineDeleted)="onMedicineDeleted($event)"
+                              (medicineUpdateClicked)="onMedicineUpdateClicked($event)"></app-medicine-list>
+    </div>
+    <div class="col-sm-4">
+      <app-medicine-form [medicineToUpdate]="medicineToUpdate"
+                              (medicineUpdated)="onMedicineUpdate($event)"
+                              (medicineCreated)="onMedicineDeleted($event)"></app-medicine-form>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</div>

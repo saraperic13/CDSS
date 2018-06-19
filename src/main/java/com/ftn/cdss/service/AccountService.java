@@ -75,13 +75,13 @@ public class AccountService {
         if (accountDao.findAll().isEmpty()) {
             final Account admin = new Account();
             admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("#adminjecaR1"));
+            admin.setPassword(passwordEncoder.encode("admin123"));
             admin.getRoles().add(roleDao.getOne(1L));
             accountDao.save(admin);
 
             Account doctor = new Account();
             doctor.setUsername("drAca");
-            doctor.setPassword(passwordEncoder.encode("#acajecaR1"));
+            doctor.setPassword(passwordEncoder.encode("aca123"));
             doctor.getRoles().add(roleDao.getOne(2L));
             doctor = accountDao.save(doctor);
 

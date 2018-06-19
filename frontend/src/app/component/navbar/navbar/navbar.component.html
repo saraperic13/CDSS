@@ -11,11 +11,14 @@
       </li>
 
       <li *ngIf="userIsDoctor()" class="nav-item active">
-        <a class="nav-link" routerLink="/medical_charts">Medical Charts</a>
+        <a class="nav-link" routerLink="/medical_charts">Kartoni</a>
       </li>
 
       <li *ngIf="userIsAdmin()" class="nav-item active">
-        <a class="nav-link" routerLink="/doctors">Doctors</a>
+        <a class="nav-link" routerLink="/doctors">Doktori</a>
+      </li>
+      <li *ngIf="userIsAdmin()" class="nav-item active">
+        <a class="nav-link" routerLink="/medicines">Lekovi</a>
       </li>
 
     </ul>
@@ -27,12 +30,12 @@
         <div class="nav-item dropdown">
           <a class="nav-link  dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
              aria-haspopup="true" aria-expanded="false">
-            Account
+            Nalog
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="left: -95%">
             <div style="color: gray; margin-left: 20px; margin-top: 5px; margin-bottom: 10px"><i>{{getUsername()}}</i>
             </div>
-            <a class="dropdown-item" id="logout" routerLink="/login" (click)="logout()">Log out</a>
+            <a class="dropdown-item" id="logout" routerLink="/login" (click)="logout()">Odjavi me</a>
           </div>
         </div>
       </li>

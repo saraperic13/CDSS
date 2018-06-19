@@ -1,0 +1,28 @@
+<table class="table-sm table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Tip</th>
+    <th scope="col">Ime</th>
+    <th scope="col">Sastojci</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let medicine of medicines;let idx = index">
+    <td scope="row">{{idx+1}}</td>
+    <td scope="row">{{getMedicineName(medicine.type)}}</td>
+    <td scope="row">{{medicine.name}}</td>
+    <td scope="row">
+      <p *ngFor="let ing of ingredients">
+        {{ing.name}}
+      </p>
+    </td>
+    <td scope="row">
+      <button href="#" (click)="updateMedicine(medicine)" class="btn btn-warning ">E</button>
+    </td>
+    <td scope="row">
+      <button (click)="deleteMedicine(medicine.id)" class="btn btn-danger">X</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
