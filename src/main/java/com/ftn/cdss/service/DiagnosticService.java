@@ -38,11 +38,7 @@ public class DiagnosticService {
     public Disease diagnose(List<Symptom> symptomList, Long chartId) {
 
         final MedicalChart medicalChart = medicalChartService.findOne(chartId);
-        final List<Disease> diseases = diseaseService.getAll();
-
         final PossibleDisease possibleDisease = new PossibleDisease();
-
-        kieSession.insert(diseases);
 
         for (Symptom s : symptomList) {
             kieSession.insert(s);
@@ -57,7 +53,6 @@ public class DiagnosticService {
 
         kieSession.destroy();
 
-        final Disease disease = diseaseService.findOne(possibleDisease.getDiseaseId());
-        return disease;
+        return diseaseService.findByName(possibleDisease.getName());
     }
 }

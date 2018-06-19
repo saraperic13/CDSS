@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-header">
+    Najverovatnija bolest: <b>{{disease.name}}</b>
+  </div>
+  <div class="card-body">
+    <h5>Opšti simptomi</h5>
+    <p *ngFor="let symp of disease.commonSymptoms" class="card-text">
+      {{symp.name}} {{symp.value}}</p>
+
+    <h5 *ngIf="disease.specificSymptoms.length > 0">Specifični simptomi</h5>
+    <p *ngFor="let symp of disease.specificSymptoms" class="card-text">
+      {{symp.name}} {{symp.value}}</p>
+  </div>
+</div>

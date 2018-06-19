@@ -5,6 +5,7 @@ import {MedicalChart} from '../../../domain/MedicalChart';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DiagnosticService} from "../../../service/diagnostic-service/diagnostic.service";
 import {Symptom} from "../../../domain/Symptom";
+import {Disease} from "../../../domain/Disease";
 
 @Component({
   selector: 'app-medical-chart-details',
@@ -15,8 +16,10 @@ export class MedicalChartDetailsComponent implements OnInit {
 
   chart: MedicalChart;
 
-  form: FormGroup;
+  calculatedDisease: Disease;
+  noDiseaseCalculated: boolean = false;
 
+  form: FormGroup;
   symptoms: FormControl;
 
   constructor(private route: ActivatedRoute,
@@ -45,23 +48,29 @@ export class MedicalChartDetailsComponent implements OnInit {
   loadChart(chartId: number) {
     this.medicalChartService.getOne(chartId).subscribe(res => {
       this.chart = res;
-    }, error=>{
+    }, error => {
       this.router.navigate(['not_found']);
     });
   }
 
   diagnose(symptomsString: string) {
+    this.calculatedDisease = null;
+
     let symptomsValues = symptomsString.split(",");
     let symptoms: Symptom[] = [];
-    for(let val of symptomsValues){
+    for (let val of symptomsValues) {
       let sympList = val.trim().split(":");
       let symptom = new Symptom(sympList[0], sympList[1]);
       symptoms.push(symptom);
     }
     // let commonSymptoms: Symptoms = new Symptoms(symptomsString.split(","));
     this.diagnosticService.diagnose(symptoms, this.chart.id).subscribe(res => {
-      console.log(res);
-    });
+        this.calculatedDisease = res;
+        this.noDiseaseCalculated = false;
+      },
+      error => {
+        this.noDiseaseCalculated = true;
+      });
   }
 
 }

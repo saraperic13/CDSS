@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -15,5 +17,9 @@ public class DiseaseDto {
 
     private String name;
 
-    private SymptomsDto symptoms;
+    private int type;
+
+    private List<SymptomDto> commonSymptoms;
+
+    private List<SymptomDto> specificSymptoms;
 }

@@ -257,10 +257,12 @@ rule "Found disease list does exist"
 end
 
 rule "Possible diseases"
+    no-loop
     agenda-group "symptoms"
     salience -100
     when
         $diseases: FoundDiseases()
+        $mostLikely: PossibleDisease()
     then
         for(Object d1: $diseases.getDiseases()){
                             FoundDisease disease1 = (FoundDisease)d1;
@@ -271,6 +273,9 @@ rule "Possible diseases"
                         }
 
         Collections.sort($diseases.getDiseases(), new DetectedDiseasesComparator());
+        final FoundDisease first = $diseases.getDiseases().get(0);
+        $mostLikely.setName(first.getDiseaseName());
+        update($mostLikely);
 
         for(Object d2: $diseases.getDiseases()){
                     FoundDisease disease = (FoundDisease)d2;

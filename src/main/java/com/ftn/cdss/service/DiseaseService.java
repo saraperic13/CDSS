@@ -23,10 +23,18 @@ public class DiseaseService {
     }
 
     public Disease findOne(Long id) {
-        if(id == null){
-            throw new EntityNotFoundException("Medical chart not found!");
+        if (id == null) {
+            throw new EntityNotFoundException("Disease not found!");
         }
         return diseaseDao.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Medical chart not found!"));
+                new EntityNotFoundException("Disease not found!"));
+    }
+
+    public Disease findByName(String name) {
+        if (name == null) {
+            throw new EntityNotFoundException("Disease not found!");
+        }
+        return diseaseDao.findByName(name).orElseThrow(() ->
+                new EntityNotFoundException("Disease not found!"));
     }
 }

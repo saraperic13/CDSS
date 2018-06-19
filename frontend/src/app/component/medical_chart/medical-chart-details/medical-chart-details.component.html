@@ -3,32 +3,39 @@
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
       <div *ngIf="chart" class="chart">
-        <h3>SSN: {{chart.ssn}}</h3>
-        <h5>Name: {{chart.name}}</h5>
-        <h5>Surname: {{chart.surname}}</h5>
+        <h3>JMBG: {{chart.ssn}}</h3>
+        <h5>Ime: {{chart.name}}</h5>
+        <h5>Prezime: {{chart.surname}}</h5>
       </div>
       <hr/>
-      <h4>Diagnose</h4>
-      <p>Please, separate symptoms with comma ','.</p>
-
+      <h4>Dijagnoza</h4>
       <form novalidate id="form" [formGroup]="form"
             (ngSubmit)="diagnose(symptoms.value)">
 
         <div class="form-group">
-          <label for="symptoms">symptoms</label>
+          <label for="symptoms">Simptomi</label>
           <input type="text" formControlName="symptoms" id="symptoms" placeholder="Enter all the symptoms" [ngClass]="{
             'form-control is-invalid': symptoms.invalid && (symptoms.dirty || symptoms.touched),
             'form-control is-valid': symptoms.valid && (symptoms.dirty || symptoms.touched),
             'form-control':true
           }">
+          <p>
+            <small>Unesite simptome razdvojene zarezom (ukoliko simptom ima vrednost, razdvojte dvotačkom npr.
+              temperatura:39.0).
+            </small>
+          </p>
           <div class="invalid-feedback" *ngIf="symptoms.errors && (symptoms.dirty || symptoms.touched)">
-            <p *ngIf="symptoms.errors.required">Enter at least one symptom!</p>
+            <p *ngIf="symptoms.errors.required">Unesite barem jedan simptom!</p>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Diagnose</button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Dijagnostikuj</button>
       </form>
 
+      <hr/>
     </div>
-    <div class="col-sm-3"></div>
+    <div class="col-sm-3">
+      <app-disease-card *ngIf="calculatedDisease" [disease]="calculatedDisease"></app-disease-card>
+      <h5 *ngIf="noDiseaseCalculated">Simptomi ne odgovaraju nijednoj definasnoj bolesti!</h5>
+    </div>
   </div>
 </div>

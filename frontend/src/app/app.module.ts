@@ -26,6 +26,7 @@ import {DoctorFormComponent} from './component/doctors/doctor-form/doctor-form.c
 import {DoctorListComponent} from './component/doctors/doctor-list/doctor-list.component';
 import {DoctorsPageComponent} from './component/doctors/doctors-page/doctors-page.component';
 import {DoctorService} from "./service/doctor-service/doctor.service";
+import { DiseaseCardComponent } from './component/disease-card/disease-card.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {DoctorService} from "./service/doctor-service/doctor.service";
     NotFoundPageComponent,
     DoctorFormComponent,
     DoctorListComponent,
-    DoctorsPageComponent
+    DoctorsPageComponent,
+    DiseaseCardComponent
   ],
   imports: [
     BrowserModule,

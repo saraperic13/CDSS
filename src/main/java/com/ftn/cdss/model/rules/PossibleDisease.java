@@ -11,5 +11,5 @@ import lombok.Setter;
 @Setter
 public class PossibleDisease {
 
-    private Long diseaseId;
+    private String name;
 }
