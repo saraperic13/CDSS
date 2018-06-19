@@ -25,7 +25,7 @@ public class Medicine {
 
     private String name;
 
-    private String type;
+    private MedicineType type;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "medicine_ingredients",

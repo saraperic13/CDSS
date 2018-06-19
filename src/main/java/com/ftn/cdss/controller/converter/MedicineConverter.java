@@ -2,6 +2,7 @@ package com.ftn.cdss.controller.converter;
 
 import com.ftn.cdss.controller.dto.MedicineDto;
 import com.ftn.cdss.model.Medicine;
+import com.ftn.cdss.model.MedicineType;
 
 public class MedicineConverter {
 
@@ -10,7 +11,7 @@ public class MedicineConverter {
         final Medicine medicine = new Medicine();
         medicine.setId(medicineDto.getId());
         medicine.setName(medicineDto.getName());
-        medicine.setType(medicineDto.getType());
+        medicine.setType(MedicineType.values()[medicineDto.getType()]);
         return medicine;
     }
 
@@ -19,7 +20,7 @@ public class MedicineConverter {
         final MedicineDto medicineDto = new MedicineDto();
         medicineDto.setId(medicine.getId());
         medicineDto.setName(medicine.getName());
-        medicineDto.setType(medicine.getType());
+        medicineDto.setType(medicine.getType().ordinal());
         return medicineDto;
     }
 

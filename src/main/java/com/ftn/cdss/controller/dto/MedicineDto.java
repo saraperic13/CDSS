@@ -15,5 +15,5 @@ public class MedicineDto {
 
     private String name;
 
-    private String type;
+    private int type;
 }

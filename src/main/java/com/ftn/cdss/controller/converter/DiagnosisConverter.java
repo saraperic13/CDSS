@@ -25,7 +25,7 @@ public class DiagnosisConverter {
 
         final List<MedicineDto> medicineDtos = diagnosis.getMedicines()
                 .stream().map(medicine -> new MedicineDto(
-                        medicine.getId(), medicine.getName(), medicine.getType())).collect(Collectors.toList());
+                        medicine.getId(), medicine.getName(), medicine.getType().ordinal())).collect(Collectors.toList());
 
         diagnosisDto.setMedicines(medicineDtos);
         return diagnosisDto;
