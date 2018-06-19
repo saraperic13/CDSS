@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/";
 import {MedicalChart} from "../../domain/MedicalChart";
 import {Diagnosis} from "../../domain/Diagnosis";
-import {Symptoms} from "../../domain/Symptoms";
+import {Symptom} from "../../domain/Symptom";
 
 @Injectable()
 export class DiagnosticService {
@@ -13,7 +13,7 @@ export class DiagnosticService {
   constructor(private http: HttpClient) {
   }
 
-  diagnose(symptoms: Symptoms, chartId:number): Observable<Diagnosis> {
+  diagnose(symptoms: Symptom[], chartId:number): Observable<Diagnosis> {
     console.log(symptoms);
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post(this.path + "/" + chartId, symptoms, {headers}).map((response: any) => {

@@ -1,6 +1,7 @@
 package com.ftn.cdss.controller.converter;
 
 import com.ftn.cdss.controller.dto.DiseaseDto;
+import com.ftn.cdss.controller.dto.SymptomDto;
 import com.ftn.cdss.controller.dto.SymptomsDto;
 import com.ftn.cdss.model.Disease;
 import com.ftn.cdss.model.Symptom;
@@ -16,10 +17,10 @@ public class DiseaseConverter {
         diseaseDto.setId(disease.getId());
         diseaseDto.setName(disease.getName());
 
-        final List<String> symptoms = disease.getSymptoms()
-                .stream().map(Symptom::getName).collect(Collectors.toList());
-
-        diseaseDto.setSymptoms(new SymptomsDto(symptoms));
+//        final List<SymptomDto> symptoms = disease.getSymptoms()
+//                .stream().map(Symptom::getName).collect(Collectors.toList());
+//
+//        diseaseDto.setSymptoms(new SymptomsDto(symptoms));
 
         return diseaseDto;
     }

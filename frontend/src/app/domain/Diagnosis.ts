@@ -1,6 +1,6 @@
-import {Symptoms} from "./Symptoms";
+import {Symptom} from "./Symptom";
 
 export class Diagnosis {
   public disease: string;
-  public symptoms: Symptoms[];
+  public symptoms: Symptom[];
 }

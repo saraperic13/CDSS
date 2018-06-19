@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MedicalChartService} from "../../../service/medical-chart/medical-chart.service";
 import {MedicalChart} from '../../../domain/MedicalChart';
-import {Symptoms} from "../../../domain/Symptoms";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DiagnosticService} from "../../../service/diagnostic-service/diagnostic.service";
+import {Symptom} from "../../../domain/Symptom";
 
 @Component({
   selector: 'app-medical-chart-details',
@@ -51,7 +51,14 @@ export class MedicalChartDetailsComponent implements OnInit {
   }
 
   diagnose(symptomsString: string) {
-    let symptoms: Symptoms = new Symptoms(symptomsString.split(","));
+    let symptomsValues = symptomsString.split(",");
+    let symptoms: Symptom[] = [];
+    for(let val of symptomsValues){
+      let sympList = val.trim().split(":");
+      let symptom = new Symptom(sympList[0], sympList[1]);
+      symptoms.push(symptom);
+    }
+    // let symptoms: Symptoms = new Symptoms(symptomsString.split(","));
     this.diagnosticService.diagnose(symptoms, this.chart.id).subscribe(res => {
       console.log(res);
     });

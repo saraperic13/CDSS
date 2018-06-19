@@ -11,6 +11,7 @@ import java.util.Collections;
 import com.ftn.cdss.util.DetectedDiseasesComparator;
 
 rule "sara"
+    agenda-group "symptoms"
     when
     then
         System.out.println("EEEEEJJJJ");
@@ -18,6 +19,7 @@ end
 
 
 rule "Prehlada"
+    agenda-group "symptoms"
     when
        $list: ArrayList($listSize: size>=4) from collect (
            Symptom("curenje iz nosa" contains name.toLowerCase()
@@ -38,6 +40,7 @@ rule "Prehlada"
 end
 
 rule "Groznica"
+    agenda-group "symptoms"
     when
        $list: ArrayList($listSize: size>=4) from collect (
            Symptom("curenje iz nosa" contains name.toLowerCase()
@@ -45,7 +48,7 @@ rule "Groznica"
                    || "glavobolja" contains name.toLowerCase()
                    || "kijanje" contains name.toLowerCase()
                    || "kašalj" contains name.toLowerCase()
-                   || "temperatura veća od 38" contains name.toLowerCase()
+                   || "temperatura" contains name.toLowerCase() && value > 38
                    || "drhtavica" contains name.toLowerCase()
            )
        )
@@ -61,6 +64,7 @@ end
 
 
 rule "Found diseses list does not exist"
+    agenda-group "symptoms"
     salience -10
     when
         $found: FoundDisease()
@@ -74,6 +78,7 @@ rule "Found diseses list does not exist"
 end
 
 rule "Found disease list does exist"
+    agenda-group "symptoms"
     salience -15
     when
         $found: FoundDisease()
@@ -85,6 +90,7 @@ rule "Found disease list does exist"
 end
 
 rule "Possible diseases"
+    agenda-group "symptoms"
     salience -100
     when
         $diseases: FoundDiseases()

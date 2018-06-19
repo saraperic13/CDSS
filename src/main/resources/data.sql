@@ -43,8 +43,8 @@ INSERT INTO public.symptoms (symptom_id, name)
 VALUES (4, 'Kijanje');
 INSERT INTO public.symptoms (symptom_id, name)
 VALUES (5, 'Kašalj');
-INSERT INTO public.symptoms (symptom_id, name)
-VALUES (6, 'Temperatura veća od 38');
+INSERT INTO public.symptoms (symptom_id, name, value)
+VALUES (6, 'Temperatura veća od', 48);
 INSERT INTO public.symptoms (symptom_id, name)
 VALUES (7, 'Drhtavica');
 INSERT INTO public.symptoms (symptom_id, name)

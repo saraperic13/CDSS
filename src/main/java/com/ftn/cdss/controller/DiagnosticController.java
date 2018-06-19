@@ -2,7 +2,7 @@ package com.ftn.cdss.controller;
 
 import com.ftn.cdss.controller.converter.DiseaseConverter;
 import com.ftn.cdss.controller.converter.SymptomsConverter;
-import com.ftn.cdss.controller.dto.SymptomsDto;
+import com.ftn.cdss.controller.dto.SymptomDto;
 import com.ftn.cdss.model.Disease;
 import com.ftn.cdss.model.Symptom;
 import com.ftn.cdss.service.DiagnosticService;
@@ -32,7 +32,7 @@ public class DiagnosticController {
     @PostMapping(value = "/{chartId}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity diagnose(@RequestBody @Valid SymptomsDto symptomsDto, @PathVariable Long chartId) {
+    public ResponseEntity diagnose(@RequestBody @Valid List<SymptomDto> symptomsDto, @PathVariable Long chartId) {
 
         List<Symptom> symptomList = SymptomsConverter.fromDto(symptomsDto);
         final Disease disease = this.diagnosticService.diagnose(symptomList, chartId);

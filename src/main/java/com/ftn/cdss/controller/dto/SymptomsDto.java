@@ -14,4 +14,6 @@ import java.util.List;
 public class SymptomsDto {
 
     private List<String> symptoms;
+
+    private List<Double> values;
 }

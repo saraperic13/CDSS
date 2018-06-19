@@ -49,6 +49,7 @@ public class DiagnosticService {
         kieSession.insert(medicalChart);
         kieSession.insert(possibleDisease);
 
+        kieSession.getAgenda().getAgendaGroup("symptoms").setFocus();
         kieSession.fireAllRules();
 
         kieSession.destroy();
