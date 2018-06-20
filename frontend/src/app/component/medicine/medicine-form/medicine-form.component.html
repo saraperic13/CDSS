@@ -30,6 +30,12 @@
     </div>
   </div>
 
+  <div class="checkbox" *ngFor="let i of ingredients">
+    <label>
+      <input type="checkbox" value="i.id"
+             (change)="onCheckboxChange(i,$event)">{{i.name}}</label>
+  </div>
+
   <button type="button" class="btn btn-success" (click)="save()" [disabled]="form.invalid">Sačuvaj</button>
 </form>
 

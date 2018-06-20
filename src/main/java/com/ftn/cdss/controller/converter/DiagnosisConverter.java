@@ -4,8 +4,10 @@ import com.ftn.cdss.controller.dto.DiagnosisDto;
 import com.ftn.cdss.controller.dto.MedicineDto;
 import com.ftn.cdss.model.Diagnosis;
 import com.ftn.cdss.model.Disease;
+import com.ftn.cdss.model.Ingredient;
 import com.ftn.cdss.model.Medicine;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -24,8 +26,7 @@ public class DiagnosisConverter {
         diagnosisDto.setSymptomsInput(diagnosis.getSymptomsInput());
 
         final List<MedicineDto> medicineDtos = diagnosis.getMedicines()
-                .stream().map(medicine -> new MedicineDto(
-                        medicine.getId(), medicine.getName(), medicine.getType().ordinal())).collect(Collectors.toList());
+                .stream().map(MedicineConverter::toDto).collect(Collectors.toList());
 
         diagnosisDto.setMedicines(medicineDtos);
         return diagnosisDto;

@@ -1,9 +1,12 @@
 package com.ftn.cdss.controller.dto;
 
+import com.ftn.cdss.model.Ingredient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,4 +19,6 @@ public class MedicineDto {
     private String name;
 
     private int type;
+
+    private List<Ingredient> ingredients;
 }

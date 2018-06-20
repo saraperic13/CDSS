@@ -27,7 +27,7 @@ public class Medicine {
 
     private MedicineType type;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "medicine_ingredients",
             joinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id", referencedColumnName = "ingredient_id"))

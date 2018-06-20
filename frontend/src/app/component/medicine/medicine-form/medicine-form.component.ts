@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Medicine} from "../../../domain/Medicine";
 import {MedicineService} from "../../../service/medicine-service/medicine.service";
+import {Ingredient} from "../../../domain/Ingredient";
+import {IngredientService} from "../../../service/ingredient-service/ingredient.service";
 
 @Component({
   selector: 'app-medicine-form',
@@ -14,6 +16,10 @@ export class MedicineFormComponent implements OnInit {
   @Output() medicineUpdated = new EventEmitter();
 
   _medicineToUpdate: Medicine;
+
+  ingredients: Ingredient[];
+
+  checkedIngredients = [];
 
   form: FormGroup;
   name: FormControl;
@@ -32,11 +38,13 @@ export class MedicineFormComponent implements OnInit {
     return this._medicineToUpdate;
   }
 
-  constructor(private medicineService: MedicineService) {
+  constructor(private medicineService: MedicineService,
+              private ingredientService: IngredientService) {
   }
 
   ngOnInit() {
     this.createForm();
+    this.getIngredients();
   }
 
   createForm() {
@@ -49,12 +57,18 @@ export class MedicineFormComponent implements OnInit {
 
   }
 
+  getIngredients() {
+    this.ingredientService.getAll().subscribe(res => {
+      this.ingredients = res;
+    });
+  }
+
   save() {
 
     let medicine = new Medicine();
     medicine.name = this.name.value;
     medicine.type = this.selectedType.value;
-    ;
+    medicine.ingredients = this.checkedIngredients;
 
     if (this._medicineToUpdate != null) {
       medicine.id = this.medicineToUpdate.id;
@@ -80,5 +94,19 @@ export class MedicineFormComponent implements OnInit {
     this.form.reset();
   }
 
+  onCheckboxChange(option, event) {
+    if(event.target.checked) {
+      let ing: Ingredient = new Ingredient();
+      ing.id = option.id;
+      this.checkedIngredients.push(ing);
+    } else {
+      for(var i=0 ; i < this.ingredients.length; i++) {
+        if(this.checkedIngredients[i].id == option.id){
+          this.checkedIngredients.splice(i,1);
+        }
+      }
+    }
+    console.log(this.checkedIngredients);
+  }
 
 }

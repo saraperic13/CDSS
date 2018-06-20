@@ -13,7 +13,7 @@
     <td scope="row">{{getMedicineName(medicine.type)}}</td>
     <td scope="row">{{medicine.name}}</td>
     <td scope="row">
-      <p *ngFor="let ing of ingredients">
+      <p *ngFor="let ing of medicine.ingredients">
         {{ing.name}}
       </p>
     </td>
