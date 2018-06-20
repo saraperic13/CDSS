@@ -41,7 +41,7 @@ export class MedicalChartFormComponent implements OnInit {
       this.name.setValue(chart.name);
 
       let str = [];
-      for(let a of chart.allergies){
+      for (let a of chart.allergies) {
         str.push(a.name);
       }
       this.allergies.setValue(str.join(","));
@@ -75,18 +75,20 @@ export class MedicalChartFormComponent implements OnInit {
     chart.surname = surname;
     chart.ssn = ssn;
 
-    let allergiesValues = allergiesString.split(",");
-    let allergies: Allergy[] = [];
-    for (let val of allergiesValues) {
-      val = val.trim();
-      if(val === ""){
-        continue;
+    if (allergiesString) {
+      let allergiesValues = allergiesString.split(",");
+      let allergies: Allergy[] = [];
+      for (let val of allergiesValues) {
+        val = val.trim();
+        if (val === "") {
+          continue;
+        }
+        let symptom = new Allergy(val);
+        allergies.push(symptom);
       }
-      let symptom = new Allergy(val);
-      allergies.push(symptom);
-    }
 
-    chart.allergies = allergies;
+      chart.allergies = allergies;
+    }
     console.log(chart);
 
     if (this._chartToUpdate != null) {

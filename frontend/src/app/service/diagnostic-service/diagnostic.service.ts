@@ -80,4 +80,15 @@ export class DiagnosticService {
       return Observable.throw(error || 'Server error');
     });
   }
+
+  setMedicines(medicines: Medicine[], diagnosisId: number) {
+    console.log(medicines);
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(this.path + "/prescribe/" + diagnosisId, medicines,
+      {headers}).map((response: any) => {
+      return response;
+    }).catch((error: any) => {
+      return Observable.throw(error || 'Server error');
+    });
+  }
 }

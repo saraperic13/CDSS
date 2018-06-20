@@ -230,4 +230,33 @@ VALUES (8, 27);
 INSERT INTO public.disease_specific_symptoms (disease_id, symptom_id)
 VALUES (8, 28);
 
+-- INGREDIENTS
 
+INSERT INTO public.ingredients (ingredient_id, name)
+VALUES (1, 'Penicilin');
+INSERT INTO public.ingredients (ingredient_id, name)
+VALUES (2, 'Acetilinska kiselina');
+INSERT INTO public.ingredients (ingredient_id, name)
+VALUES (3, 'Paracetamol');
+
+-- MEDICINES
+
+INSERT INTO public.medicines (medicine_id, name, type)
+VALUES (1, 'Fervex', 2);
+INSERT INTO public.medicines (medicine_id, name, type)
+VALUES (2, 'Brufen', 1);
+INSERT INTO public.medicines (medicine_id, name, type)
+VALUES (3, 'Aspirin', 1);
+INSERT INTO public.medicines (medicine_id, name, type)
+VALUES (4, 'Penicilin', 0);
+
+-- MEDICINE INGREDIENTS
+
+INSERT INTO public.medicine_ingredients(medicine_id, ingredient_id)
+VALUES (1, 3);
+INSERT INTO public.medicine_ingredients(medicine_id, ingredient_id)
+VALUES (2, 2);
+INSERT INTO public.medicine_ingredients(medicine_id, ingredient_id)
+VALUES (3, 2);
+INSERT INTO public.medicine_ingredients(medicine_id, ingredient_id)
+VALUES (4, 1);

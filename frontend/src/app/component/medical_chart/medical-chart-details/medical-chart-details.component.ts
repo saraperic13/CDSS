@@ -35,7 +35,7 @@ export class MedicalChartDetailsComponent implements OnInit {
 
   medicines: Medicine[];
 
-  diagnosis: Diagnosis;
+  diagnosis: Diagnosis = null;
 
   medicineValidationMessage: string = "";
 
@@ -152,7 +152,9 @@ export class MedicalChartDetailsComponent implements OnInit {
   }
 
   setMedicines() {
-    this.resetForms();
+    this.diagnosticService.setMedicines(this.checkedMedicines, this.diagnosis.id).subscribe(res => {
+      this.resetForms();
+    });
   }
 
   onCheckboxChange(option, event) {

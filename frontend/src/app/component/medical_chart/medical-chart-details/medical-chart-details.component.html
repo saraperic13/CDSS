@@ -57,8 +57,7 @@
 
       <hr/>
 
-      <form novalidate id="medicinesForm"
-            (ngSubmit)="setMedicines()">
+      <form novalidate id="medicinesForm">
 
         <div class="form-group">
           <label>Recept za lekove</label>
@@ -70,6 +69,9 @@
         </div>
         <button type="submit" class="btn btn-primary" (click)="validateMedicines()"
                 [disabled]="this.checkedMedicines.length<1">Validiraj recept
+        </button>
+        <button type="submit" class="btn btn-primary" (click)="setMedicines()"
+                [disabled]="this.checkedMedicines.length<1 || !diagnosis">Prepiši recept
         </button>
       </form>
       <h4>{{medicineValidationMessage}}</h4>

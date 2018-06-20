@@ -58,6 +58,20 @@ public class DiagnosticController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('diagnose')")
+    @PostMapping(value = "/prescribe/{diagnosisId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity prescribeMedication(@RequestBody List<MedicineDto> medicineDtos,
+                                              @PathVariable Long diagnosisId) {
+
+        final List<Medicine> medicines =
+                medicineDtos.stream().map(MedicineConverter::fromDto).collect(Collectors.toList());
+        final Diagnosis diagnosis = this.diagnosticService.prescribeMedication(medicines, diagnosisId);
+
+        return new ResponseEntity<>(DiagnosisConverter.toDto(diagnosis), HttpStatus.OK);
+    }
+
 
     @PreAuthorize("hasAuthority('diagnose')")
     @PostMapping(value = "/{chartId}",

@@ -26,6 +26,7 @@ export class DiagnosisListComponent implements OnInit {
   getAll(){
     this.diagnosisService.getAllForChart(this.chartId).subscribe(res=>{
       this.diagnosis = res;
+      console.log(res);
     });
   }
 

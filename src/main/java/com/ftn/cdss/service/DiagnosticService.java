@@ -5,14 +5,13 @@ import com.ftn.cdss.model.*;
 import com.ftn.cdss.model.rules.MedicationValidation;
 import com.ftn.cdss.model.rules.PossibleDisease;
 import com.ftn.cdss.repository.DiagnosisDao;
-import com.ftn.cdss.repository.MedicineDao;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collector;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -102,7 +101,7 @@ public class DiagnosticService {
 
     public Boolean validateMedicines(List<Medicine> medicines, Long chartId) {
 
-        medicines =  medicines.stream().map(medicine -> medicineService.findOne(medicine.getId()))
+        medicines = medicines.stream().map(medicine -> medicineService.findOne(medicine.getId()))
                 .collect(Collectors.toList());
 
         final MedicalChart medicalChart = medicalChartService.findOne(chartId);
@@ -121,5 +120,16 @@ public class DiagnosticService {
         kieSession.destroy();
 
         return medicationValidation.getValid();
+    }
+
+    public Diagnosis prescribeMedication(List<Medicine> medicines, Long diagnosisId) {
+
+        final Diagnosis diagnosis = findById(diagnosisId);
+
+        Set<Medicine> medicineSet = medicines.stream().map(
+                medicine -> medicineService.findOne(medicine.getId())).collect(Collectors.toSet());
+        diagnosis.setMedicines(medicineSet);
+
+        return diagnosisDao.save(diagnosis);
     }
 }
