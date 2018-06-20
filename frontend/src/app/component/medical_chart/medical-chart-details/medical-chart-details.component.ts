@@ -20,7 +20,7 @@ export class MedicalChartDetailsComponent implements OnInit {
 
   chart: MedicalChart;
 
-  calculatedDisease: Disease;
+  calculatedDiseases: Disease[];
   noDiseaseCalculated: boolean = false;
 
   diseases: Disease[];
@@ -79,7 +79,7 @@ export class MedicalChartDetailsComponent implements OnInit {
   }
 
   diagnose(symptomsString: string) {
-    this.calculatedDisease = null;
+    this.calculatedDiseases = [];
 
     let symptomsValues = symptomsString.split(",");
     let symptoms: Symptom[] = [];
@@ -89,7 +89,7 @@ export class MedicalChartDetailsComponent implements OnInit {
       symptoms.push(symptom);
     }
     this.diagnosticService.diagnose(symptoms, this.chart.id).subscribe(res => {
-        this.calculatedDisease = res;
+        this.calculatedDiseases.push(res);
         this.noDiseaseCalculated = false;
       },
       error => {
@@ -174,12 +174,33 @@ export class MedicalChartDetailsComponent implements OnInit {
   }
 
   diseaseSymptoms(){
+    this.calculatedDiseases = [];
     console.log(this.selectedDisease.value);
     let disease = new Disease();
     disease.id = this.selectedDisease.value;
     this.diagnosticService.diseaseSymptoms(disease).subscribe(res=>{
-      this.calculatedDisease = res;
+      this.calculatedDiseases.push(res);
     });
   }
 
+  diagnoseAll(symptomsString: string) {
+    this.calculatedDiseases = [];
+
+    let symptomsValues = symptomsString.split(",");
+    let symptoms: Symptom[] = [];
+    for (let val of symptomsValues) {
+      let sympList = val.trim().split(":");
+      let symptom = new Symptom(sympList[0], sympList[1]);
+      symptoms.push(symptom);
+    }
+    this.diagnosticService.diagnoseGetAll(symptoms, this.chart.id).subscribe(res => {
+        console.log("EVO MEEE");
+        console.log(res);
+        this.calculatedDiseases = res;
+        this.noDiseaseCalculated = false;
+      },
+      error => {
+        this.noDiseaseCalculated = true;
+      });
+  }
 }

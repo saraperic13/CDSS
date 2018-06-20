@@ -25,6 +25,16 @@ export class DiagnosticService {
     });
   }
 
+  diagnoseGetAll(symptoms: Symptom[], chartId: number): Observable<Disease[]> {
+    console.log(symptoms);
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(this.path + "/calculate_all/" + chartId, symptoms, {headers}).map((response: any) => {
+      return response;
+    }).catch((error: any) => {
+      return Observable.throw(error || 'Server error');
+    });
+  }
+
   diseaseSymptoms(disease: Disease): Observable<Disease> {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post(this.path + "/disease_symptoms", disease, {headers}).map((response: any) => {

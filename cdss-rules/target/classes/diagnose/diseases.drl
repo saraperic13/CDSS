@@ -13,16 +13,10 @@ import java.util.Collections;
 import com.ftn.cdss.util.DetectedDiseasesComparator;
 import com.ftn.cdss.util.DateUtil;
 
-rule "sara"
-    agenda-group "symptoms"
-    when
-    then
-        System.out.println("EEEEEJJJJ");
-end
-
 //---------------------------------FIRST TYPE--------------------------------------
 
 rule "Prehlada"
+    lock-on-active
     agenda-group "symptoms"
     when
        $list: ArrayList($listSize: size>=4) from collect (
@@ -43,6 +37,7 @@ rule "Prehlada"
 end
 
 rule "Groznica"
+    lock-on-active
     agenda-group "symptoms"
     when
        $list: ArrayList($listSize: size>=4) from collect (
@@ -65,6 +60,7 @@ rule "Groznica"
 end
 
 rule "Upala krajnika"
+    lock-on-active
     agenda-group "symptoms"
     when
         $list: ArrayList($listSize: size>=4) from collect (
@@ -88,6 +84,7 @@ rule "Upala krajnika"
 end
 
 rule "Sinusna infekcija"
+    lock-on-active
     agenda-group "symptoms"
     when
         $n2:Number() from accumulate(Diagnosis((disease.getName().equals("Prehlada")
@@ -119,6 +116,7 @@ end
 //---------------------------------SECOND TYPE-------------------------------------------------------------------------
 
 rule "Hipertenzija"
+    lock-on-active
     agenda-group "symptoms"
     when
         Number($n2:intValue >= 10) from accumulate($diag: Diagnosis(new Date() < DateUtil.addDate(date, "m", 6)
@@ -136,6 +134,7 @@ rule "Hipertenzija"
 end
 
 rule "Dijabetes"
+    lock-on-active
     agenda-group "symptoms"
     when
         $list: ArrayList($listSize: size, $listSize==4) from collect (
@@ -157,6 +156,7 @@ end
 //---------------------------------THIRD TYPE------------------------------------------------------------------
 
 rule "Hronična bubrežna bolest"
+    lock-on-active
     agenda-group "symptoms"
     when
         Number($n2:intValue >= 1) from accumulate(Diagnosis(disease.getName().equals("Dijabetes")
@@ -185,6 +185,7 @@ end
 
 
 rule "Akutna bubrežna povreda"
+    lock-on-active
     agenda-group "symptoms"
     when
         $oper: Number() from accumulate(Symptom(name.toLowerCase() contains "operacij"),
@@ -265,25 +266,8 @@ rule "Possible diseases"
         $diseases: FoundDiseases()
         $mostLikely: PossibleDisease()
     then
-        for(Object d1: $diseases.getDiseases()){
-                            FoundDisease disease1 = (FoundDisease)d1;
-                            System.out.println("BOLEEEST " + disease1.getDiseaseName() + " "
-                            + disease1.getNumOfSymptoms().toString()
-                            + " " + disease1.getNumOfFulfilled().toString());
-
-                        }
-
         Collections.sort($diseases.getDiseases(), new DetectedDiseasesComparator());
         final FoundDisease first = $diseases.getDiseases().get(0);
         $mostLikely.setName(first.getDiseaseName());
         update($mostLikely);
-
-        for(Object d2: $diseases.getDiseases()){
-                    FoundDisease disease = (FoundDisease)d2;
-                    System.out.println("BOLEEEST 2222 " + disease.getDiseaseName() + " "
-                    + disease.getNumOfSymptoms().toString()
-                    + " " + disease.getNumOfFulfilled().toString());
-
-                }
-
 end

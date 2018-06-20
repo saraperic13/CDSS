@@ -4,10 +4,7 @@ import com.ftn.cdss.controller.converter.DiagnosisConverter;
 import com.ftn.cdss.controller.converter.DiseaseConverter;
 import com.ftn.cdss.controller.converter.MedicineConverter;
 import com.ftn.cdss.controller.converter.SymptomsConverter;
-import com.ftn.cdss.controller.dto.DiagnosisDto;
-import com.ftn.cdss.controller.dto.DiseaseSymptomsDto;
-import com.ftn.cdss.controller.dto.MedicineDto;
-import com.ftn.cdss.controller.dto.SymptomDto;
+import com.ftn.cdss.controller.dto.*;
 import com.ftn.cdss.model.Diagnosis;
 import com.ftn.cdss.model.Disease;
 import com.ftn.cdss.model.Medicine;
@@ -45,6 +42,18 @@ public class DiagnosticController {
         List<Symptom> symptomList = SymptomsConverter.fromDto(symptomsDto);
         final Disease disease = this.diagnosticService.calculate(symptomList, chartId);
         return new ResponseEntity<>(DiseaseConverter.toDto(disease), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('diagnose')")
+    @PostMapping(value = "/calculate_all/{chartId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity calculateAll(@RequestBody @Valid List<SymptomDto> symptomsDto, @PathVariable Long chartId) {
+
+        final List<Symptom> symptomList = SymptomsConverter.fromDto(symptomsDto);
+        final List<Disease> disease = this.diagnosticService.getAllCalculated(symptomList, chartId);
+        final List<DiseaseDto> diseaseDtos = disease.stream().map(DiseaseConverter::toDto).collect(Collectors.toList());
+        return new ResponseEntity<>(diseaseDtos, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('diagnose')")

@@ -3,14 +3,17 @@ package com.ftn.cdss.service;
 import com.ftn.cdss.controller.dto.DiseaseSymptomsDto;
 import com.ftn.cdss.exception.EntityNotFoundException;
 import com.ftn.cdss.model.*;
+import com.ftn.cdss.model.rules.FoundDiseases;
 import com.ftn.cdss.model.rules.MedicationValidation;
 import com.ftn.cdss.model.rules.PossibleDisease;
 import com.ftn.cdss.repository.DiagnosisDao;
+import org.kie.api.runtime.ClassObjectFilter;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -135,6 +138,36 @@ public class DiagnosticService {
         kieSession.destroy();
 
         return diseaseSymptomsDto;
+    }
+
+    public List<Disease> getAllCalculated(List<Symptom> symptomList, Long chartId) {
+
+        final MedicalChart medicalChart = medicalChartService.findOne(chartId);
+        final PossibleDisease possibleDisease = new PossibleDisease();
+
+        for (Symptom s : symptomList) {
+            kieSession.insert(s);
+        }
+        for (Diagnosis d : medicalChart.getDiagnosis()) {
+            kieSession.insert(d);
+        }
+        kieSession.insert(possibleDisease);
+
+        kieSession.getAgenda().getAgendaGroup("symptoms").setFocus();
+        kieSession.fireAllRules();
+
+        final Collection<?> diseases
+                = kieSession.getObjects(new ClassObjectFilter(FoundDiseases.class));
+        final FoundDiseases foundDiseases = (FoundDiseases) (diseases.iterator().next());
+
+        if (foundDiseases == null) {
+            throw new EntityNotFoundException();
+        }
+        kieSession.destroy();
+
+        List<Disease> retVal = foundDiseases.getDiseases().stream().map(foundDisease
+                -> diseaseService.findByName(foundDisease.getDiseaseName())).collect(Collectors.toList());
+        return retVal;
     }
 
     public Diagnosis prescribeMedication(List<Medicine> medicines, Long diagnosisId) {
