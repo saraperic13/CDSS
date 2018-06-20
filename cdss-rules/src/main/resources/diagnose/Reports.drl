@@ -13,6 +13,7 @@ import com.ftn.cdss.util.DateUtil;
 
 
 rule "Pacijenti sa hroničnim oboljenjima"
+    no-loop
     agenda-group "chronic_disease"
     when
         $chart:MedicalChart($chartId: id)
@@ -33,6 +34,7 @@ rule "Pacijenti sa hroničnim oboljenjima"
 end
 
 rule "Mogući zavisnici"
+    no-loop
     agenda-group "addicts"
     when
         $rp:ReportPatients($diagnosisList: diagnosisList)

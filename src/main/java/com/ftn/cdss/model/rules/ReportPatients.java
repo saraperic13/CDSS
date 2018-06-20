@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,11 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 public class ReportPatients {
 
-    private List<MedicalChart> reportChronicPatients;
+    private List<MedicalChart> reportChronicPatients = new ArrayList<>();
 
     private List<MedicalChart> reportAddicts;
 
-    private List<MedicalChart> reportLowImmuneSystem;
+    private List<MedicalChart> reportLowImmuneSystem = new ArrayList<>();
 
     private List<Diagnosis> diagnosisList;
 }
