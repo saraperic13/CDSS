@@ -96,6 +96,7 @@ export class MedicineFormComponent implements OnInit {
     for (var i = 0, n = aa.length; i < n; i++) {
       aa[i].checked = false;
     }
+    this.checkedIngredients = [];
   }
 
   onCheckboxChange(option, event) {
