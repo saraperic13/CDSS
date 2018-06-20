@@ -23,4 +23,6 @@ public class Symptom {
     private String name;
 
     private Double value;
+
+    private boolean active = true;
 }

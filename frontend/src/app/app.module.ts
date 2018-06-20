@@ -33,11 +33,13 @@ import {MedicineFormComponent} from './component/medicine/medicine-form/medicine
 import {MedicinePageComponent} from './component/medicine/medicine-page/medicine-page.component';
 import {MedicineService} from "./service/medicine-service/medicine.service";
 import {IngredientService} from "./service/ingredient-service/ingredient.service";
-import { IngredientFormComponent } from './component/ingredient/ingredient-form/ingredient-form.component';
-import { IngredientListComponent } from './component/ingredient/ingredient-list/ingredient-list.component';
-import { IngredientPageComponent } from './component/ingredient/ingredient-page/ingredient-page.component';
-import { DiagnosisComponent } from './component/diagnosis/diagnosis-card/diagnosis.component';
-import { DiagnosisListComponent } from './component/diagnosis/diagnosis-list/diagnosis-list.component';
+import {IngredientFormComponent} from './component/ingredient/ingredient-form/ingredient-form.component';
+import {IngredientListComponent} from './component/ingredient/ingredient-list/ingredient-list.component';
+import {IngredientPageComponent} from './component/ingredient/ingredient-page/ingredient-page.component';
+import {DiagnosisComponent} from './component/diagnosis/diagnosis-card/diagnosis.component';
+import {DiagnosisListComponent} from './component/diagnosis/diagnosis-list/diagnosis-list.component';
+import {ReportsComponent} from './component/reports/reports.component';
+import {ReportService} from "./service/report/report.service";
 
 
 @NgModule({
@@ -62,7 +64,8 @@ import { DiagnosisListComponent } from './component/diagnosis/diagnosis-list/dia
     IngredientListComponent,
     IngredientPageComponent,
     DiagnosisComponent,
-    DiagnosisListComponent
+    DiagnosisListComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +84,7 @@ import { DiagnosisListComponent } from './component/diagnosis/diagnosis-list/dia
     DiseaseService,
     MedicineService,
     IngredientService,
+    ReportService,
     HttpClient,
     CanActivateAuthGuard,
     CanActivateAdminGuard,

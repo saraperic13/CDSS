@@ -6,8 +6,8 @@
     <th scope="col">IME</th>
     <th scope="col">PREZIME</th>
     <th scope="col">Detaljnije</th>
-    <th scope="col">Izmeni</th>
-    <th scope="col">Obriši</th>
+    <th scope="col" *ngIf="modify">Izmeni</th>
+    <th scope="col" *ngIf="modify">Obriši</th>
   </tr>
   </thead>
   <tbody>
@@ -20,10 +20,10 @@
       <button class="btn btn-info" type="button" (click)="details(chart.id)">>></button>
     </td>
     <td scope="row">
-      <button href="#" (click)="updateChart(chart)" class="btn btn-warning ">E</button>
+      <button href="#" *ngIf="modify" (click)="updateChart(chart)" class="btn btn-warning ">E</button>
     </td>
     <td scope="row">
-      <button (click)="deleteChart(chart.id)" class="btn btn-danger">X</button>
+      <button (click)="deleteChart(chart.id)" *ngIf="modify" class="btn btn-danger">X</button>
     </td>
   </tr>
   </tbody>

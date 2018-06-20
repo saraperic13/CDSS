@@ -19,5 +19,7 @@ public class ReportPatients {
 
     private List<MedicalChart> reportAddicts;
 
+    private List<MedicalChart> reportLowImmuneSystem;
+
     private List<Diagnosis> diagnosisList;
 }

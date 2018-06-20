@@ -29,6 +29,7 @@ rule "Pacijenti sa hroničnim oboljenjima"
     then
        System.out.println("hronican pacijent");
        $rp.getReportChronicPatients().add($chart);
+       update($rp);
 end
 
 rule "Mogući zavisnici"
@@ -55,4 +56,5 @@ rule "Mogući zavisnici"
     then
         System.out.println("Zavisnici");
         $rp.getReportAddicts().add($chart);
+        update($rp);
 end

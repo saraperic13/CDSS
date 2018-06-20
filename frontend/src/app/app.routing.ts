@@ -12,6 +12,7 @@ import {CanActivateAdminGuard} from "./guard/can-activate-admin-guard";
 import {MedicinePageComponent} from "./component/medicine/medicine-page/medicine-page.component";
 import {IngredientPageComponent} from "./component/ingredient/ingredient-page/ingredient-page.component";
 import {DiagnosisListComponent} from "./component/diagnosis/diagnosis-list/diagnosis-list.component";
+import {ReportsComponent} from "./component/reports/reports.component";
 
 const appRoutes: Routes = [
   {
@@ -21,6 +22,11 @@ const appRoutes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [CanActivateAuthGuard]
+  },
+  {
+    path: 'reports',
+    component: ReportsComponent,
     canActivate: [CanActivateAuthGuard]
   },
   {

@@ -1,0 +1,15 @@
+<div class="containter">
+  <div class="row" style="margin-top: 2%">
+    <div class="col-sm-3">
+      <button (click)="getChronic()" class="btn btn-primary">Hronični bolesnici</button>
+      <button (click)="getAddicted()" class="btn btn-primary">Mogući zavisnici</button>
+      <button (click)="getLowImuneSystem()" class="btn btn-primary">Pacijenti slabog imuniteta</button>
+    </div>
+    <div class="col-sm-6">
+      <h5>Kartoni</h5>
+      <app-medical-chart-list [modify]="false" [charts]="charts"></app-medical-chart-list>
+    </div>
+
+    <div class="col-sm-3"></div>
+  </div>
+</div>

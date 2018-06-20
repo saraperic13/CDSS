@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 export class MedicalChartListComponent implements OnInit {
 
   @Input() charts: MedicalChart[];
+  @Input() modify: boolean;
 
   @Output() chartDeleted = new EventEmitter();
   @Output() chartUpdateClicked = new EventEmitter<MedicalChart>();
