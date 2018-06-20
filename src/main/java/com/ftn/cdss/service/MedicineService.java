@@ -39,6 +39,11 @@ public class MedicineService {
 
     public Medicine update(Medicine medicine) {
         findOne(medicine.getId());
+
+        Set<Ingredient> ingredients = medicine.getIngredients().stream()
+                .map(ingredient -> ingredientDao.findById(ingredient.getId()).get()).collect(Collectors.toSet());
+        medicine.setIngredients(ingredients);
+
         return medicineDao.save(medicine);
     }
 
