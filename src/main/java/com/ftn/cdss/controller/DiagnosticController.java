@@ -5,6 +5,7 @@ import com.ftn.cdss.controller.converter.DiseaseConverter;
 import com.ftn.cdss.controller.converter.MedicineConverter;
 import com.ftn.cdss.controller.converter.SymptomsConverter;
 import com.ftn.cdss.controller.dto.DiagnosisDto;
+import com.ftn.cdss.controller.dto.DiseaseSymptomsDto;
 import com.ftn.cdss.controller.dto.MedicineDto;
 import com.ftn.cdss.controller.dto.SymptomDto;
 import com.ftn.cdss.model.Diagnosis;
@@ -82,6 +83,16 @@ public class DiagnosticController {
         Diagnosis diagnosis = DiagnosisConverter.fromDto(diagnosisDto);
         diagnosis = this.diagnosticService.diagnose(diagnosis, chartId);
         return new ResponseEntity<>(DiagnosisConverter.toDto(diagnosis), HttpStatus.CREATED);
+    }
+
+    @PreAuthorize("hasAuthority('diagnose')")
+    @PostMapping(value = "/disease_symptoms",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity diseaseSymptom(@RequestBody @Valid DiseaseSymptomsDto diseaseSymptomsDto) {
+
+        diseaseSymptomsDto = this.diagnosticService.getDiseaseSymptoms(diseaseSymptomsDto);
+        return new ResponseEntity<>(diseaseSymptomsDto, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('diagnose')")

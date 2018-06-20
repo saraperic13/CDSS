@@ -25,6 +25,16 @@ export class DiagnosticService {
     });
   }
 
+  diseaseSymptoms(disease: Disease): Observable<Disease> {
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(this.path + "/disease_symptoms", disease, {headers}).map((response: any) => {
+      console.log(response);
+      return response;
+    }).catch((error: any) => {
+      return Observable.throw(error || 'Server error');
+    });
+  }
+
   setDiagnosis(diagnosis: Diagnosis, chartId: number): Observable<Diagnosis> {
     console.log(diagnosis);
     let headers = new HttpHeaders({'Content-Type': 'application/json'});

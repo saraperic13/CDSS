@@ -53,6 +53,9 @@
         <button type="submit" class="btn btn-primary" (click)="setDiagnosis(selectedDisease.value)"
                 [disabled]="diagnosisForm.invalid">Uspostavi dijagnozu
         </button>
+        <button class="btn btn-primary" (click)="diseaseSymptoms()"
+                [disabled]="diagnosisForm.invalid">Dobavi simptome
+        </button>
       </form>
 
       <hr/>

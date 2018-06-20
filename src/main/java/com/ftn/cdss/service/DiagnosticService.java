@@ -1,5 +1,6 @@
 package com.ftn.cdss.service;
 
+import com.ftn.cdss.controller.dto.DiseaseSymptomsDto;
 import com.ftn.cdss.exception.EntityNotFoundException;
 import com.ftn.cdss.model.*;
 import com.ftn.cdss.model.rules.MedicationValidation;
@@ -120,6 +121,20 @@ public class DiagnosticService {
         kieSession.destroy();
 
         return medicationValidation.getValid();
+    }
+
+    public DiseaseSymptomsDto getDiseaseSymptoms(DiseaseSymptomsDto diseaseSymptomsDto) {
+        final Disease disease = diseaseService.findOne(diseaseSymptomsDto.getId());
+        diseaseSymptomsDto.setName(disease.getName());
+
+        kieSession.insert(diseaseSymptomsDto);
+
+        kieSession.getAgenda().getAgendaGroup("disease_symptoms").setFocus();
+        kieSession.fireAllRules();
+
+        kieSession.destroy();
+
+        return diseaseSymptomsDto;
     }
 
     public Diagnosis prescribeMedication(List<Medicine> medicines, Long diagnosisId) {

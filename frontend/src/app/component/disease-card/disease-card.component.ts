@@ -15,4 +15,12 @@ export class DiseaseCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  getName(symp){
+    return symp.name? symp.name: symp;
+  }
+
+  getValue(symp){
+    return symp.value? symp.value: "";
+  }
+
 }

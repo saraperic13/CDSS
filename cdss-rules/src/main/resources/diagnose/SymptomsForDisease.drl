@@ -1,0 +1,122 @@
+import com.ftn.cdss.controller.dto.DiseaseSymptomsDto;
+
+rule "GetSymptomsPrehlada"
+    agenda-group "disease_symptoms"
+    no-loop
+    when
+        $d: DiseaseSymptomsDto(name == "Prehlada")
+    then
+        $d.getCommonSymptoms().add("Curenje iz nosa");
+        $d.getCommonSymptoms().add("Bol u grlu");
+        $d.getCommonSymptoms().add("Glavobolja");
+        $d.getCommonSymptoms().add("Kijanje");
+        $d.getCommonSymptoms().add("Kašalj");
+        update($d);
+end
+
+rule "GetSymptomsGroznica"
+    agenda-group "disease_symptoms"
+    no-loop
+    when
+        $d: DiseaseSymptomsDto(name == "Groznica")
+    then
+        $d.getCommonSymptoms().add("Curenje iz nosa");
+        $d.getCommonSymptoms().add("Bol u grlu");
+        $d.getCommonSymptoms().add("Glavobolja");
+        $d.getCommonSymptoms().add("Kijanje");
+        $d.getCommonSymptoms().add("Kašalj");
+        $d.getCommonSymptoms().add("Drhtavica");
+        $d.getCommonSymptoms().add("Temperatura veca od 38 0C");
+        update($d);
+end
+
+rule "GetSymptomsUK"
+    agenda-group "disease_symptoms"
+    no-loop
+    when
+        $d: DiseaseSymptomsDto(name == "Upala krajnika")
+    then
+        $d.getCommonSymptoms().add("Bol koji se siri do usiju");
+        $d.getCommonSymptoms().add("Bol u grlu");
+        $d.getCommonSymptoms().add("Glavobolja");
+        $d.getCommonSymptoms().add("Gubitak apetita");
+        $d.getCommonSymptoms().add("Umor");
+        $d.getCommonSymptoms().add("Zuti sekret iz nosa");
+        $d.getCommonSymptoms().add("Drhtavica");
+        $d.getCommonSymptoms().add("Temperatura od 40 0C do 41 0C");
+        update($d);
+end
+
+rule "GetSymptomsSI"
+    agenda-group "disease_symptoms"
+    no-loop
+    when
+        $d: DiseaseSymptomsDto(name == "Sinusna infekcija")
+    then
+        $d.getSpecificSymptoms().add("Specifični zahtev, u kartonu (sitemu) treba da stoji da je pacijent bolovao od prehlade ili " +
+                           "groznice u poslednjih 60 dana.");
+        $d.getCommonSymptoms().add("Kasalj");
+        $d.getCommonSymptoms().add("Temperatura veca od 38 0C");
+        $d.getCommonSymptoms().add("Bol u grlu");
+        $d.getCommonSymptoms().add("Zuti sekret iz nosa");
+        $d.getCommonSymptoms().add("Glavobolja");
+        $d.getCommonSymptoms().add("Oticanje oko ociju");
+        update($d);
+end
+
+rule "GetSymptomsHT"
+    agenda-group "disease_symptoms"
+    no-loop
+    when
+        $d: DiseaseSymptomsDto(name == "Hipertenzija")
+    then
+        $d.getCommonSymptoms().add("U poslednjih 6 meseci zabelezeno barem 10 " +
+         "slucajeva u kojem je pacijent imao visok pritisak.");
+         update($d);
+end
+
+rule "GetSymptomsDij"
+    agenda-group "disease_symptoms"
+    no-loop
+    when
+        $d: DiseaseSymptomsDto(name == "Dijabetes")
+    then
+        $d.getCommonSymptoms().add("Cesto uriniranje");
+        $d.getCommonSymptoms().add("Gubitak telesne tezine");
+        $d.getCommonSymptoms().add("Zamor");
+        $d.getCommonSymptoms().add("Mucnina i povracanje");
+        update($d);
+end
+
+rule "GetSymptomsHbb"
+    agenda-group "disease_symptoms"
+    no-loop
+    when
+        $d: DiseaseSymptomsDto(name == "Hronična bubrežna bolest")
+    then
+        $d.getSpecificSymptoms().add("*Pacijent boluje od dijabetesa");
+        $d.getSpecificSymptoms().add("*Pacijent boluje od hipertenzije vise od 6 meseci");
+        $d.getCommonSymptoms().add("Bol u grudima");
+        $d.getCommonSymptoms().add("Gusenje");
+        $d.getCommonSymptoms().add("Otoci nogu i zglobova");
+        $d.getCommonSymptoms().add("Nocturia");
+        $d.getCommonSymptoms().add("Zamor");
+        update($d);
+end
+
+rule "GetSymptomsAbp"
+    agenda-group "disease_symptoms"
+    no-loop
+    when
+        $d: DiseaseSymptomsDto(name == "Akutna bubrežna povreda")
+    then
+        $d.getSpecificSymptoms().add("*Oporavlja se od operacije");
+        $d.getSpecificSymptoms().add("*U poslednjih 14 dana dijagnostikovana bolest koja kao simptom ima povišenu telesnu " +
+                           "temperaturu");
+        $d.getSpecificSymptoms().add("*U poslednjih 21 dana dijagnostikovana bolest za koju je primao antibiotike");
+        $d.getCommonSymptoms().add("Dijareja");
+        $d.getCommonSymptoms().add("Otoci nogu i zglobova");
+        $d.getCommonSymptoms().add("Gusenje");
+        $d.getCommonSymptoms().add("Zamor");
+        update($d);
+end

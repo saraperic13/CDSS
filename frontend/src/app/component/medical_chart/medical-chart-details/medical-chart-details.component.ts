@@ -173,4 +173,13 @@ export class MedicalChartDetailsComponent implements OnInit {
     console.log(this.checkedMedicines);
   }
 
+  diseaseSymptoms(){
+    console.log(this.selectedDisease.value);
+    let disease = new Disease();
+    disease.id = this.selectedDisease.value;
+    this.diagnosticService.diseaseSymptoms(disease).subscribe(res=>{
+      this.calculatedDisease = res;
+    });
+  }
+
 }
