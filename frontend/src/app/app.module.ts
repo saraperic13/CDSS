@@ -33,6 +33,9 @@ import {MedicineFormComponent} from './component/medicine/medicine-form/medicine
 import {MedicinePageComponent} from './component/medicine/medicine-page/medicine-page.component';
 import {MedicineService} from "./service/medicine-service/medicine.service";
 import {IngredientService} from "./service/ingredient-service/ingredient.service";
+import { IngredientFormComponent } from './component/ingredient/ingredient-form/ingredient-form.component';
+import { IngredientListComponent } from './component/ingredient/ingredient-list/ingredient-list.component';
+import { IngredientPageComponent } from './component/ingredient/ingredient-page/ingredient-page.component';
 
 
 @NgModule({
@@ -52,7 +55,10 @@ import {IngredientService} from "./service/ingredient-service/ingredient.service
     DiseaseCardComponent,
     MedicineListComponent,
     MedicineFormComponent,
-    MedicinePageComponent
+    MedicinePageComponent,
+    IngredientFormComponent,
+    IngredientListComponent,
+    IngredientPageComponent
   ],
   imports: [
     BrowserModule,

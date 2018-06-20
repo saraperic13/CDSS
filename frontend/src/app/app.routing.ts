@@ -10,6 +10,7 @@ import {NotFoundPageComponent} from "./component/not-found-page/not-found-page.c
 import {DoctorsPageComponent} from "./component/doctors/doctors-page/doctors-page.component";
 import {CanActivateAdminGuard} from "./guard/can-activate-admin-guard";
 import {MedicinePageComponent} from "./component/medicine/medicine-page/medicine-page.component";
+import {IngredientPageComponent} from "./component/ingredient/ingredient-page/ingredient-page.component";
 
 const appRoutes: Routes = [
   {
@@ -34,6 +35,11 @@ const appRoutes: Routes = [
   {
     path: 'medicines',
     component: MedicinePageComponent,
+    canActivate: [CanActivateAdminGuard]
+  },
+  {
+    path: 'ingredients',
+    component: IngredientPageComponent,
     canActivate: [CanActivateAdminGuard]
   },
   {

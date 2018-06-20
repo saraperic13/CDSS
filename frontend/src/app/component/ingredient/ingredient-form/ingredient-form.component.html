@@ -1,0 +1,20 @@
+<h5 class="title">Novi sastojak</h5>
+
+<form novalidate id="ingredeientForm" [formGroup]="form">
+
+  <div class="form-group">
+    <label for="name">Ime</label>
+    <input type="text" formControlName="name" id="name" placeholder="Unesite ime sastojka" [ngClass]="{
+            'form-control is-invalid': name.invalid && (name.dirty || name.touched),
+            'form-control is-valid': name.valid && (name.dirty || name.touched),
+            'form-control':true
+          }">
+
+    <div class="invalid-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+      <p *ngIf="name.errors.required">Ime je obavezno!</p>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-success" (click)="save()" [disabled]="form.invalid">Sačuvaj</button>
+</form>
+

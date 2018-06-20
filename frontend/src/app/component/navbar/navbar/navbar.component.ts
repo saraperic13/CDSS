@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.links = [];
-    this.links.push(new NavbarLink('Home', '/home'));
+    this.links.push(new NavbarLink('Početna', '/home'));
   }
 
   getUsername() {

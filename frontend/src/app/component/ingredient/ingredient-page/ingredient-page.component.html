@@ -1,0 +1,17 @@
+<div class="containter">
+  <div class="row"style="margin-top: 2%">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-6">
+      <h5>Sastojci</h5>
+      <app-ingredient-list [ingredients]="ingredients"
+                              (ingredientDeleted)="onIngredientDeleted($event)"
+                              (ingredientUpdateClicked)="onIngredientUpdateClicked($event)"></app-ingredient-list>
+    </div>
+    <div class="col-sm-4">
+      <app-ingredient-form [ingredientToUpdate]="ingredientToUpdate"
+                              (ingredientUpdated)="onIngredientUpdate($event)"
+                              (ingredientCreated)="onIngredientDeleted($event)"></app-ingredient-form>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</div>

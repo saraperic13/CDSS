@@ -1,0 +1,24 @@
+<table class="table-sm table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">NAME</th>
+    <th scope="col">Edit</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let ingredient of ingredients;let idx = index">
+    <td scope="row">{{idx+1}}</td>
+    <td scope="row">{{ingredient.ssn}}</td>
+    <td scope="row">{{ingredient.name}}</td>
+    <td scope="row">{{ingredient.surname}}</td>
+    <td scope="row">
+      <button href="#" (click)="updateIngredient(ingredient)" class="btn btn-warning ">E</button>
+    </td>
+    <td scope="row">
+      <button (click)="deleteIngredient(ingredient.id)" class="btn btn-danger">X</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
