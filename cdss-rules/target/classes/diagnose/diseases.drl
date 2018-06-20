@@ -122,7 +122,8 @@ rule "Hipertenzija"
     agenda-group "symptoms"
     when
         Number($n2:intValue >= 10) from accumulate($diag: Diagnosis(new Date() < DateUtil.addDate(date, "m", 6)
-                                                 && symptomsInput.toLowerCase() contains "visok pritisak"),
+                                                 && symptomsInput != null
+                                                 &&symptomsInput.toLowerCase() contains "visok pritisak"),
                       count($diag)
                     )
     then
