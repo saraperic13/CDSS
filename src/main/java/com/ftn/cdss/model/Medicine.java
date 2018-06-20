@@ -27,6 +27,8 @@ public class Medicine {
 
     private MedicineType type;
 
+    private boolean active = true;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "medicine_ingredients",
             joinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id"),

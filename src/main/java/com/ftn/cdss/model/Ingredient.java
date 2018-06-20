@@ -26,6 +26,8 @@ public class Ingredient {
 
     private String name;
 
+    private boolean active = true;
+
     @ManyToMany
     @JoinTable(name = "ingredients_medicine",
             joinColumns = @JoinColumn(name = "ingredient_id", referencedColumnName = "ingredient_id"),

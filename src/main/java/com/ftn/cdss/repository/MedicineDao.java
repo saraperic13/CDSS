@@ -9,4 +9,6 @@ import java.util.List;
 public interface MedicineDao extends JpaRepository<Medicine, Long> {
 
     List<Medicine> findByIngredientsIsContaining(Ingredient ingredient);
+
+    List<Medicine> findAllByActiveIsTrue();
 }

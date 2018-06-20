@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class IngredientService {
-    
+
     private final IngredientDao ingredientDao;
 
     private final MedicineService medicineService;
@@ -37,11 +37,12 @@ public class IngredientService {
         medicines.forEach(medicine -> medicine.getIngredients().remove(ingredient));
         medicines.forEach(medicineService::update);
 
-        ingredientDao.delete(ingredient);
+        ingredient.setActive(false);
+        ingredientDao.save(ingredient);
     }
 
     public List<Ingredient> getAll() {
-        return ingredientDao.findAll();
+        return ingredientDao.findAllByActiveIsTrue();
     }
 
     public Ingredient findOne(Long id) {

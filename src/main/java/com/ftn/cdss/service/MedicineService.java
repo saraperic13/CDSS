@@ -26,7 +26,7 @@ public class MedicineService {
     }
 
     public List<Medicine> getAll() {
-        return medicineDao.findAll();
+        return medicineDao.findAllByActiveIsTrue();
     }
 
     public Medicine create(Medicine medicine) {
@@ -49,7 +49,8 @@ public class MedicineService {
 
     public void delete(Long id) {
         final Medicine medicine = findOne(id);
-        medicineDao.delete(medicine);
+        medicine.setActive(false);
+        medicineDao.save(medicine);
     }
 
     public Medicine findOne(Long id) {

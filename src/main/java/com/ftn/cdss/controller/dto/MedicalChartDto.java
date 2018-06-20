@@ -27,5 +27,5 @@ public class MedicalChartDto {
 
     private List<Long> diagnosis;
 
-    private List<Long> allergies;
+    private List<AllergyDto> allergies;
 }
