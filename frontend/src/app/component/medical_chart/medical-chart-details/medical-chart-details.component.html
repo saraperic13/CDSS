@@ -7,6 +7,7 @@
         <h3>JMBG: {{chart.ssn}}</h3>
         <h5>Ime: {{chart.name}}</h5>
         <h5>Prezime: {{chart.surname}}</h5>
+        <h5 *ngIf="chart.allergies.length>0">Alergije: {{getAllergies(chart.allergies)}}</h5>
         <a href="/diagnosis/{{chart.id}}">Prethodne dijagnoze</a>
       </div>
       <hr/>

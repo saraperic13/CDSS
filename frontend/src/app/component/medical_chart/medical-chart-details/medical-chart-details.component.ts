@@ -111,4 +111,14 @@ export class MedicalChartDetailsComponent implements OnInit {
     this.diagnosisForm.reset();
   }
 
+  getAllergies(allergies) {
+
+    let str = [];
+    for (let a of allergies) {
+      str.push(a.name);
+    }
+
+    return str.join(",");
+  }
+
 }

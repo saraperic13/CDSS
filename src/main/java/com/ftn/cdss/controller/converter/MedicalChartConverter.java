@@ -19,6 +19,7 @@ public class MedicalChartConverter {
         medicalChartDto.setName(medicalChart.getName());
         medicalChartDto.setSsn(medicalChart.getSsn());
         medicalChartDto.setSurname(medicalChart.getSurname());
+
         final List<AllergyDto> allergies = medicalChart.getAllergies()
                 .stream().map(AllergyConverter::toDto).collect(Collectors.toList());
         final List<Long> diagnosis = medicalChart.getDiagnosis()
@@ -37,6 +38,9 @@ public class MedicalChartConverter {
         medicalChart.setSsn(medicalChartDto.getSsn());
         medicalChart.setSurname(medicalChartDto.getSurname());
 
+        if (medicalChartDto.getAllergies() == null) {
+            return medicalChart;
+        }
         Set<Allergy> allergies = medicalChartDto.getAllergies()
                 .stream().map(AllergyConverter::fromDto).collect(Collectors.toSet());
         medicalChart.setAllergies(allergies);

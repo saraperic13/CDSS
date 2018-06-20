@@ -38,17 +38,10 @@ public class MedicalChartService {
         findOne(medicalChart.getId());
 
         Set<Allergy> allergies = medicalChart.getAllergies().stream()
-                .map(this::saveAllergy).collect(Collectors.toSet());
+                .map(allergyDao::save).collect(Collectors.toSet());
 
         medicalChart.setAllergies(allergies);
         return medicalChartDao.save(medicalChart);
-    }
-
-    private Allergy saveAllergy(Allergy allergy) {
-        final Allergy allergy1 = allergyDao.findById(allergy.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Allergy not found"));
-        allergy1.setName(allergy.getName());
-        return allergy1;
     }
 
     public void delete(Long id) {
