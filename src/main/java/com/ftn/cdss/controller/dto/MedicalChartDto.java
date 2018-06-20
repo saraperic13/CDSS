@@ -1,5 +1,6 @@
 package com.ftn.cdss.controller.dto;
 
+import com.ftn.cdss.model.Allergy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,5 @@ public class MedicalChartDto {
 
     private List<Long> diagnosis;
 
-    private List<Long> allergies;
+    private List<AllergyDto> allergies;
 }

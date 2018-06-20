@@ -21,6 +21,7 @@ export class MedicalChartFormComponent implements OnInit {
   ssn: FormControl;
   name: FormControl;
   surname: FormControl;
+  allergies: FormControl;
 
   constructor(private medicalChartService: MedicalChartService) {
   }
@@ -37,6 +38,7 @@ export class MedicalChartFormComponent implements OnInit {
       this.ssn.setValue(chart.ssn);
       this.surname.setValue(chart.surname);
       this.name.setValue(chart.name);
+      this.allergies.setValue(chart.allergies);
     }
   }
 

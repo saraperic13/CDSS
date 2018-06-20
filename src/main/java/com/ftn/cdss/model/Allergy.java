@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -22,15 +23,5 @@ public class Allergy {
     @Column(name = "allergy_id")
     private Long id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "allergic_to_medicines",
-            joinColumns = @JoinColumn(name = "allergy_id", referencedColumnName = "allergy_id"),
-            inverseJoinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id"))
-    private Set<Medicine> medicines = new HashSet<>();
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "allergic_to_ingredients",
-            joinColumns = @JoinColumn(name = "allergy_id", referencedColumnName = "allergy_id"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient_id", referencedColumnName = "ingredient_id"))
-    private Set<Ingredient> ingredients = new HashSet<>();
+    private String name;
 }

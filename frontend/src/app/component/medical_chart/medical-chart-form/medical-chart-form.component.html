@@ -4,42 +4,55 @@
       (ngSubmit)="saveChart(ssn.value, name.value, surname.value)">
 
   <div class="form-group">
-    <label for="ssn">SSN</label>
-    <input type="number" formControlName="ssn" id="ssn" placeholder="Enter a SSN " [ngClass]="{
+    <label for="ssn">JMBG</label>
+    <input type="number" formControlName="ssn" id="ssn" placeholder="Unesite JMBG " [ngClass]="{
             'form-control is-invalid': ssn.invalid && (ssn.dirty || ssn.touched),
             'form-control is-valid': ssn.valid && (ssn.dirty || ssn.touched),
             'form-control':true
           }">
 
     <div class="invalid-feedback" *ngIf="ssn.errors && (ssn.dirty || ssn.touched)">
-      <p *ngIf="ssn.errors.required">SSN is required!</p>
+      <p *ngIf="ssn.errors.required">JMBG je obavezan!</p>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" formControlName="name" id="name" placeholder="Enter a name " [ngClass]="{
+    <label for="name">Ime</label>
+    <input type="text" formControlName="name" id="name" placeholder="Unesite ime" [ngClass]="{
             'form-control is-invalid': name.invalid && (name.dirty || name.touched),
             'form-control is-valid': name.valid && (name.dirty || name.touched),
             'form-control':true
           }">
 
     <div class="invalid-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
-      <p *ngIf="name.errors.required">Name is required!</p>
+      <p *ngIf="name.errors.required">Ime je obavezno!</p>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="surname">Surname</label>
-    <input type="text" formControlName="surname" id="surname" placeholder="Enter a surname " [ngClass]="{
+    <label for="surname">Prezime</label>
+    <input type="text" formControlName="surname" id="surname" placeholder="Unesite prezime" [ngClass]="{
             'form-control is-invalid': surname.invalid && (surname.dirty || surname.touched),
             'form-control is-valid': surname.valid && (surname.dirty || surname.touched),
             'form-control':true
           }">
 
     <div class="invalid-feedback" *ngIf="surname.errors && (surname.dirty || surname.touched)">
-      <p *ngIf="surname.errors.required">Surname is required!</p>
+      <p *ngIf="surname.errors.required">Prezime je obavezno!</p>
     </div>
+  </div>
+
+  <div class="form-group">
+    <label for="allergies">Alergije</label>
+    <input type="text" formControlName="allergies" id="allergies" placeholder="Unesite alergije" [ngClass]="{
+            'form-control is-invalid': allergies.invalid && (allergies.dirty || allergies.touched),
+            'form-control is-valid': allergies.valid && (allergies.dirty || allergies.touched),
+            'form-control':true
+          }">
+    <p>
+      <small>Unesite alergije razdvojene zarezom.
+      </small>
+    </p>
   </div>
 
   <button type="submit" id="saveChartButton" class="btn btn-success" [disabled]="form.invalid">Save</button>

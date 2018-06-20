@@ -1,30 +1,54 @@
 package com.ftn.cdss.service;
 
 import com.ftn.cdss.exception.EntityNotFoundException;
+import com.ftn.cdss.model.Allergy;
 import com.ftn.cdss.model.MedicalChart;
+import com.ftn.cdss.repository.AllergyDao;
 import com.ftn.cdss.repository.MedicalChartDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class MedicalChartService {
 
     private final MedicalChartDao medicalChartDao;
 
+    private final AllergyDao allergyDao;
+
     @Autowired
-    public MedicalChartService(MedicalChartDao medicalChartDao) {
+    public MedicalChartService(MedicalChartDao medicalChartDao, AllergyDao allergyDao) {
         this.medicalChartDao = medicalChartDao;
+        this.allergyDao = allergyDao;
     }
 
     public MedicalChart create(MedicalChart medicalChart) {
+
+        Set<Allergy> allergies = medicalChart.getAllergies().stream()
+                .map(allergyDao::save).collect(Collectors.toSet());
+
+        medicalChart.setAllergies(allergies);
         return medicalChartDao.save(medicalChart);
     }
 
     public MedicalChart update(MedicalChart medicalChart) {
         findOne(medicalChart.getId());
+
+        Set<Allergy> allergies = medicalChart.getAllergies().stream()
+                .map(this::saveAllergy).collect(Collectors.toSet());
+
+        medicalChart.setAllergies(allergies);
         return medicalChartDao.save(medicalChart);
+    }
+
+    private Allergy saveAllergy(Allergy allergy) {
+        final Allergy allergy1 = allergyDao.findById(allergy.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Allergy not found"));
+        allergy1.setName(allergy.getName());
+        return allergy1;
     }
 
     public void delete(Long id) {

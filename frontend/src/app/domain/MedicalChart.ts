@@ -1,3 +1,5 @@
+import {Allergy} from "./Allergy";
+
 export class MedicalChart {
 
   public id: number;
@@ -5,7 +7,7 @@ export class MedicalChart {
   public name: string;
   public surname: string;
   public diagnosis: number[];
-  public allergies: number[];
+  public allergies: Allergy[];
 
   constructor();
 
@@ -14,14 +16,14 @@ export class MedicalChart {
               name: string,
               surname: string,
               diagnosis: number[],
-              allergies:number[]);
+              allergies:Allergy[]);
 
   constructor(id?: number,
               ssn?: number,
               name?: string,
               surname?: string,
               diagnosis?: number[],
-              allergies?:number[]) {
+              allergies?:Allergy[]) {
     this.id = id;
     this.ssn = ssn;
     this.name = name;
