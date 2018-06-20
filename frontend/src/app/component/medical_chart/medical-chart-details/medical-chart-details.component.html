@@ -1,11 +1,13 @@
 <div class="containter">
   <div class="row" style="margin-top: 2%">
-    <div class="col-sm-3"></div>
+    <div class="col-sm-3">
+    </div>
     <div class="col-sm-6">
       <div *ngIf="chart" class="chart">
         <h3>JMBG: {{chart.ssn}}</h3>
         <h5>Ime: {{chart.name}}</h5>
         <h5>Prezime: {{chart.surname}}</h5>
+        <a href="/diagnosis/{{chart.id}}">Prethodne dijagnoze</a>
       </div>
       <hr/>
       <h4>Dijagnoza</h4>
@@ -39,7 +41,7 @@
           <label for="selectedDisease">Izaberi bolest</label>
           <div class="col-xs-5 selectContainer">
             <select class="form-control" id="selectedDisease" formControlName="selectedDisease">
-              <option *ngFor="let d of diseases" value="{{d.id}}" [selected]="true">tip: {{d.type}} {{d.name}}</option>
+              <option *ngFor="let d of diseases" value="{{d.id}}">tip: {{d.type}} {{d.name}}</option>
             </select>
           </div>
           <div class="invalid-feedback"

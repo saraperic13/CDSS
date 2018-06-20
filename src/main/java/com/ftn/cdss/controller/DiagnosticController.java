@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -53,4 +54,35 @@ public class DiagnosticController {
         diagnosis = this.diagnosticService.diagnose(diagnosis, chartId);
         return new ResponseEntity<>(DiagnosisConverter.toDto(diagnosis), HttpStatus.CREATED);
     }
+
+    @PreAuthorize("hasAuthority('diagnose')")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getAll() {
+
+        final List<DiagnosisDto> medicalChartDtos = diagnosticService.getAllActive()
+                .stream().map(DiagnosisConverter::toDto).collect(Collectors.toList());
+
+        return new ResponseEntity<>(medicalChartDtos, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('diagnose')")
+    @GetMapping(value = "/{chartId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllForChart(@PathVariable Long chartId) {
+
+        final List<DiagnosisDto> medicalChartDtos = diagnosticService.getAllActiveForChart(chartId)
+                .stream().map(DiagnosisConverter::toDto).collect(Collectors.toList());
+
+        return new ResponseEntity<>(medicalChartDtos, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('diagnose')")
+    @DeleteMapping(value = "/{id}",
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity delete(@PathVariable Long id) {
+        diagnosticService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }

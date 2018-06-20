@@ -94,7 +94,7 @@ export class MedicineFormComponent implements OnInit {
     this.form.reset();
     let aa = document.getElementsByClassName("box");
     for (var i = 0, n = aa.length; i < n; i++) {
-      aa[i].checked = false;
+      // aa[i].checked = false;
     }
     this.checkedIngredients = [];
   }

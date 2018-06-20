@@ -33,4 +33,39 @@ export class DiagnosticService {
       return Observable.throw(error || 'Server error');
     });
   }
+
+  getAll(): Observable<Diagnosis[]> {
+
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    return this.http.get(this.path, {headers}).map((response: any) => {
+      return response;
+
+    }).catch((error: any) => {
+      return Observable.throw(error || 'Server error');
+    });
+  }
+
+  delete(id: number) {
+
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    console.log(JSON.stringify(id));
+    return this.http.delete(this.path + "/" + id, {headers}).map((response: any) => {
+      return response;
+
+    }).catch((error: any) => {
+      return Observable.throw(error || 'Server error');
+    });
+  }
+
+  getAllForChart(chartId: number) {
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    return this.http.get(this.path + "/" + chartId, {headers}).map((response: any) => {
+      return response;
+
+    }).catch((error: any) => {
+      return Observable.throw(error || 'Server error');
+    });
+  }
 }

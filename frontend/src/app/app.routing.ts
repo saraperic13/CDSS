@@ -11,6 +11,7 @@ import {DoctorsPageComponent} from "./component/doctors/doctors-page/doctors-pag
 import {CanActivateAdminGuard} from "./guard/can-activate-admin-guard";
 import {MedicinePageComponent} from "./component/medicine/medicine-page/medicine-page.component";
 import {IngredientPageComponent} from "./component/ingredient/ingredient-page/ingredient-page.component";
+import {DiagnosisListComponent} from "./component/diagnosis/diagnosis-list/diagnosis-list.component";
 
 const appRoutes: Routes = [
   {
@@ -45,6 +46,11 @@ const appRoutes: Routes = [
   {
     path: 'medical_charts/:chartId',
     component: MedicalChartDetailsComponent,
+    canActivate: [CanActivateDoctorGuard]
+  },
+  {
+    path: 'diagnosis/:chartId',
+    component: DiagnosisListComponent,
     canActivate: [CanActivateDoctorGuard]
   },
   {

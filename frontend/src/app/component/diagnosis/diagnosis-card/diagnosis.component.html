@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-header">
+    Dijagnoza: <b>{{diagnosis.diseaseName}}</b>
+    <button data-toggle="modal" name="delete" (click)="onDeleteDiagnosis()" class="btn btn-danger">Delete</button>
+  </div>
+  <div class="card-body">
+    <p>Datum: {{diagnosis.date | date:'dd-MM-yyyy HH:mm'}}</p>
+    <p>Tegobe: {{diagnosis.symptomsInput}}</p>
+    <h6>Prepisani lekovi:</h6>
+    <p *ngFor="let m of diagnosis.medicines" class="card-text">
+      {{m}}</p>
+  </div>
+</div>

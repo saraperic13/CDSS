@@ -1,0 +1,11 @@
+<div class="containter">
+  <div class="row" style="margin-top: 2%">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <h5>Prethodne dijagnoze:</h5>
+      <app-diagnosis *ngFor="let d of diagnosis" [diagnosis]="d"
+                     (diagnosisDeleteClicked)="onDiagnosisDelete($event)"></app-diagnosis>
+      <div class="col-sm-3"></div>
+    </div>
+  </div>
+</div>

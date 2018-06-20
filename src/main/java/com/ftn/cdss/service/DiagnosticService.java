@@ -1,5 +1,6 @@
 package com.ftn.cdss.service;
 
+import com.ftn.cdss.exception.EntityNotFoundException;
 import com.ftn.cdss.model.*;
 import com.ftn.cdss.model.rules.PossibleDisease;
 import com.ftn.cdss.repository.DiagnosisDao;
@@ -68,11 +69,31 @@ public class DiagnosticService {
         MedicalChart medicalChart = medicalChartService.findOne(chartId);
 
         diagnosis.setMedicalChart(medicalChart);
+
         diagnosis = diagnosisDao.save(diagnosis);
 
         medicalChart.getDiagnosis().add(diagnosis);
 
         medicalChartService.update(medicalChart);
         return diagnosis;
+    }
+
+    public List<Diagnosis> getAllActive() {
+        return diagnosisDao.findAllByActiveIsTrue();
+    }
+
+    public Diagnosis findById(Long id) {
+        return this.diagnosisDao.findById(id).orElseThrow(() -> new EntityNotFoundException("Diagnosis not found!"));
+    }
+
+    public void delete(Long id) {
+        final Diagnosis diagnosis = findById(id);
+        diagnosis.setActive(false);
+
+        diagnosisDao.save(diagnosis);
+    }
+
+    public List<Diagnosis> getAllActiveForChart(Long chartId) {
+        return diagnosisDao.findAllByActiveIsTrueAndMedicalChartId(chartId);
     }
 }
