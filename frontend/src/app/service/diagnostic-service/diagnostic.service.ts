@@ -5,6 +5,7 @@ import {MedicalChart} from "../../domain/MedicalChart";
 import {Symptom} from "../../domain/Symptom";
 import {Disease} from "../../domain/Disease";
 import {Diagnosis} from "../../domain/Diagnosis";
+import {Medicine} from "../../domain/Medicine";
 
 @Injectable()
 export class DiagnosticService {
@@ -24,7 +25,7 @@ export class DiagnosticService {
     });
   }
 
-  setDiagnosis(diagnosis: Diagnosis, chartId: number): Observable<Disease> {
+  setDiagnosis(diagnosis: Diagnosis, chartId: number): Observable<Diagnosis> {
     console.log(diagnosis);
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post(this.path + "/" + chartId, diagnosis, {headers}).map((response: any) => {
@@ -64,6 +65,17 @@ export class DiagnosticService {
     return this.http.get(this.path + "/" + chartId, {headers}).map((response: any) => {
       return response;
 
+    }).catch((error: any) => {
+      return Observable.throw(error || 'Server error');
+    });
+  }
+
+  validateMedicines(medicines: Medicine[], chartId: number): Observable<boolean> {
+    console.log(medicines);
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(this.path + "/validate_medicines/" + chartId, medicines,
+      {headers}).map((response: any) => {
+      return response;
     }).catch((error: any) => {
       return Observable.throw(error || 'Server error');
     });

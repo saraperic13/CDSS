@@ -2,6 +2,7 @@ package com.ftn.cdss.service;
 
 import com.ftn.cdss.exception.EntityNotFoundException;
 import com.ftn.cdss.model.*;
+import com.ftn.cdss.model.rules.MedicationValidation;
 import com.ftn.cdss.model.rules.PossibleDisease;
 import com.ftn.cdss.repository.DiagnosisDao;
 import com.ftn.cdss.repository.MedicineDao;
@@ -11,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 public class DiagnosticService {
@@ -21,7 +24,7 @@ public class DiagnosticService {
 
     private final DoctorService doctorService;
 
-    private final MedicineDao medicineDao;
+    private final MedicineService medicineService;
 
     private final DiagnosisDao diagnosisDao;
 
@@ -29,12 +32,12 @@ public class DiagnosticService {
 
     @Autowired
     public DiagnosticService(MedicalChartService medicalChartService, DiseaseService diseaseService,
-                             DoctorService doctorService, MedicineDao medicineDao,
+                             DoctorService doctorService, MedicineService medicineService,
                              DiagnosisDao diagnosisDao, KieSession kieSession) {
         this.medicalChartService = medicalChartService;
         this.diseaseService = diseaseService;
         this.doctorService = doctorService;
-        this.medicineDao = medicineDao;
+        this.medicineService = medicineService;
         this.diagnosisDao = diagnosisDao;
         this.kieSession = kieSession;
     }
@@ -95,5 +98,28 @@ public class DiagnosticService {
 
     public List<Diagnosis> getAllActiveForChart(Long chartId) {
         return diagnosisDao.findAllByActiveIsTrueAndMedicalChartId(chartId);
+    }
+
+    public Boolean validateMedicines(List<Medicine> medicines, Long chartId) {
+
+        medicines =  medicines.stream().map(medicine -> medicineService.findOne(medicine.getId()))
+                .collect(Collectors.toList());
+
+        final MedicalChart medicalChart = medicalChartService.findOne(chartId);
+
+        final MedicationValidation medicationValidation = new MedicationValidation();
+        medicationValidation.getAllergies().addAll(medicalChart.getAllergies());
+        medicationValidation.getMedicines().addAll(medicines);
+        medicationValidation.setChartId(chartId);
+        medicationValidation.setValid(true);
+
+        kieSession.insert(medicationValidation);
+
+        kieSession.getAgenda().getAgendaGroup("medicines").setFocus();
+        kieSession.fireAllRules();
+
+        kieSession.destroy();
+
+        return medicationValidation.getValid();
     }
 }

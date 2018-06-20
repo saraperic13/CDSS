@@ -8,6 +8,8 @@ import {Symptom} from "../../../domain/Symptom";
 import {Disease} from "../../../domain/Disease";
 import {Diagnosis} from "../../../domain/Diagnosis";
 import {DiseaseService} from "../../../service/disease-service/disease.service";
+import {Medicine} from "../../../domain/Medicine";
+import {MedicineService} from "../../../service/medicine-service/medicine.service";
 
 @Component({
   selector: 'app-medical-chart-details',
@@ -29,11 +31,20 @@ export class MedicalChartDetailsComponent implements OnInit {
   diagnosisForm: FormGroup;
   selectedDisease: FormControl;
 
+  checkedMedicines = [];
+
+  medicines: Medicine[];
+
+  diagnosis: Diagnosis;
+
+  medicineValidationMessage: string = "";
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private medicalChartService: MedicalChartService,
               private diagnosticService: DiagnosticService,
-              private diseaseService: DiseaseService) {
+              private diseaseService: DiseaseService,
+              private medicineService: MedicineService) {
   }
 
   ngOnInit() {
@@ -90,6 +101,10 @@ export class MedicalChartDetailsComponent implements OnInit {
     this.diseaseService.getAll().subscribe(res => {
       this.diseases = res;
     });
+
+    this.medicineService.getAll().subscribe(res => {
+      this.medicines = res;
+    });
   }
 
   setDiagnosis(diseaseId: number) {
@@ -100,7 +115,7 @@ export class MedicalChartDetailsComponent implements OnInit {
 
     this.diagnosticService.setDiagnosis(diagnosis, this.chart.id).subscribe(res => {
         console.log(res);
-
+        this.diagnosis = res;
       },
       error => {
       });
@@ -109,6 +124,8 @@ export class MedicalChartDetailsComponent implements OnInit {
   resetForms() {
     this.form.reset();
     this.diagnosisForm.reset();
+
+    this.checkedMedicines = [];
   }
 
   getAllergies(allergies) {
@@ -119,6 +136,38 @@ export class MedicalChartDetailsComponent implements OnInit {
     }
 
     return str.join(",");
+  }
+
+  validateMedicines() {
+    // this.diagnosis.medicines = this.checkedMedicines;
+    this.diagnosticService.validateMedicines(this.checkedMedicines, this.chart.id).subscribe(res => {
+      console.log(res);
+      if (res == true) {
+        console.log("SVE OK");
+        this.medicineValidationMessage = "Sve je u redu!";
+      } else {
+        this.medicineValidationMessage = "Pacijent je alergičan na neki od lekova ili njegovih sastojaka!";
+      }
+    });
+  }
+
+  setMedicines() {
+    this.resetForms();
+  }
+
+  onCheckboxChange(option, event) {
+    if (event.target.checked) {
+      let ing: Medicine = new Medicine();
+      ing.id = option.id;
+      this.checkedMedicines.push(ing);
+    } else {
+      for (var i = 0; i < this.medicines.length; i++) {
+        if (this.checkedMedicines[i].id == option.id) {
+          this.checkedMedicines.splice(i, 1);
+        }
+      }
+    }
+    console.log(this.checkedMedicines);
   }
 
 }

@@ -15,7 +15,9 @@ public class MedicineConverter {
         medicine.setId(medicineDto.getId());
         medicine.setName(medicineDto.getName());
         medicine.setType(MedicineType.values()[medicineDto.getType()]);
-        medicine.setIngredients(new HashSet<>(medicineDto.getIngredients()));
+        if (medicineDto.getIngredients() != null) {
+            medicine.setIngredients(new HashSet<>(medicineDto.getIngredients()));
+        }
         return medicine;
     }
 

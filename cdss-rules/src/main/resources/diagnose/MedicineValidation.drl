@@ -1,0 +1,34 @@
+
+import com.ftn.cdss.model.rules.MedicationValidation;
+import com.ftn.cdss.model.Medicine;
+import com.ftn.cdss.model.Ingredient;
+import com.ftn.cdss.model.Allergy;
+
+
+rule "Medicine validation"
+    agenda-group "medicines"
+    no-loop
+    when
+        $validation: MedicationValidation($chartId: chartId, $medicines: medicines, $allergies: allergies)
+        $b: Boolean() from accumulate(
+            Medicine ($medicineName: name, $ingredients: ingredients) from $medicines,
+            init(boolean valid = true;),
+            action(
+                for(Object a : $allergies){
+                    String allergyName = ((Allergy)a).getName();
+                    if(allergyName.contains($medicineName)){
+                        valid = false;
+                    }
+                    for(Object i : $ingredients){
+                         if(allergyName.contains(((Ingredient)i).getName())){
+                             valid = false;
+                         }
+                    }
+                }),
+            result(valid)
+        )
+    then
+        System.out.println($b);
+        $validation.setValid($b);
+        update($validation);
+end

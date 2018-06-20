@@ -41,7 +41,7 @@
           <h4>Uspostavi dijagnozu</h4>
           <label for="selectedDisease">Izaberi bolest</label>
           <div class="col-xs-5 selectContainer">
-            <select class="form-control" id="selectedDisease" formControlName="selectedDisease">
+            <select required class="form-control" id="selectedDisease" formControlName="selectedDisease">
               <option *ngFor="let d of diseases" value="{{d.id}}">tip: {{d.type}} {{d.name}}</option>
             </select>
           </div>
@@ -55,6 +55,24 @@
         </button>
       </form>
 
+      <hr/>
+
+      <form novalidate id="medicinesForm"
+            (ngSubmit)="setMedicines()">
+
+        <div class="form-group">
+          <label>Recept za lekove</label>
+          <div class="checkbox" *ngFor="let i of medicines">
+            <label>
+              <input type="checkbox" value="i.id" class="box"
+                     (change)="onCheckboxChange(i,$event)">{{i.name}}</label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="validateMedicines()"
+                [disabled]="this.checkedMedicines.length<1">Validiraj recept
+        </button>
+      </form>
+      <h4>{{medicineValidationMessage}}</h4>
     </div>
     <div class="col-sm-3">
       <app-disease-card *ngIf="calculatedDisease" [disease]="calculatedDisease"></app-disease-card>

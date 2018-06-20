@@ -19,6 +19,7 @@ export class MedicalChartListComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    console.log(this.charts);
   }
 
   deleteChart(chartId: number) {

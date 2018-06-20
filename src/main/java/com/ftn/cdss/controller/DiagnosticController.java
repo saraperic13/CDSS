@@ -2,11 +2,14 @@ package com.ftn.cdss.controller;
 
 import com.ftn.cdss.controller.converter.DiagnosisConverter;
 import com.ftn.cdss.controller.converter.DiseaseConverter;
+import com.ftn.cdss.controller.converter.MedicineConverter;
 import com.ftn.cdss.controller.converter.SymptomsConverter;
 import com.ftn.cdss.controller.dto.DiagnosisDto;
+import com.ftn.cdss.controller.dto.MedicineDto;
 import com.ftn.cdss.controller.dto.SymptomDto;
 import com.ftn.cdss.model.Diagnosis;
 import com.ftn.cdss.model.Disease;
+import com.ftn.cdss.model.Medicine;
 import com.ftn.cdss.model.Symptom;
 import com.ftn.cdss.service.DiagnosticService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +43,19 @@ public class DiagnosticController {
 
         List<Symptom> symptomList = SymptomsConverter.fromDto(symptomsDto);
         final Disease disease = this.diagnosticService.calculate(symptomList, chartId);
-        return new ResponseEntity<>(DiseaseConverter.toDto(disease), HttpStatus.CREATED);
+        return new ResponseEntity<>(DiseaseConverter.toDto(disease), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('diagnose')")
+    @PostMapping(value = "/validate_medicines/{chartId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity validateMedicines(@RequestBody List<MedicineDto> medicineDtos, @PathVariable Long chartId) {
+
+        List<Medicine> medicines = medicineDtos.stream().map(MedicineConverter::fromDto).collect(Collectors.toList());
+        final Boolean result = this.diagnosticService.validateMedicines(medicines, chartId);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 
