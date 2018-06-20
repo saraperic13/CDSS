@@ -1,0 +1,58 @@
+import com.ftn.cdss.model.rules.ReportPatients;
+import com.ftn.cdss.model.Diagnosis;
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Date;
+import com.ftn.cdss.model.Diagnosis;
+import com.ftn.cdss.model.MedicalChart;
+import com.ftn.cdss.model.Disease;
+import com.ftn.cdss.model.Medicine;
+import com.ftn.cdss.model.MedicineType;
+import com.ftn.cdss.util.DateUtil;
+
+
+rule "Pacijenti sa hroničnim oboljenjima"
+    agenda-group "chronic_disease"
+    when
+        $chart:MedicalChart($chartId: id)
+        $d: Disease( )
+        $rp:ReportPatients( $diagnosisList: diagnosisList)
+        $list: List() from collect(
+            Diagnosis( disease.name != "Prehlada" && disease.name != "Groznica"
+                    && new Date() < DateUtil.addDate(date, "y", 2))
+            from $diagnosisList)
+        $result: List() from collect(
+            Diagnosis(medicalChart.id == $chartId && disease == $d)
+        from $list)
+        eval ($result.size()>=5)
+    then
+       System.out.println("hronican pacijent");
+       $rp.getReportChronicPatients().add($chart);
+end
+
+rule "Mogući zavisnici"
+    agenda-group "addicts"
+    when
+        $rp:ReportPatients($diagnosisList: diagnosisList)
+        $chart : MedicalChart()
+        $diagnosis: List() from collect(
+            Diagnosis(containsType(MedicineType.ANALGESIC)
+                    && new Date() < DateUtil.addDate(date, "m", 6)) from $diagnosisList
+        )
+        $sameChartDiagnosis: List() from collect(
+            Diagnosis( medicalChart.id == $chart.id) from $diagnosis
+        )
+        eval($sameChartDiagnosis.size() >= 6)
+        $setDoc: Set() from accumulate(
+            Diagnosis($d : doctor) from $sameChartDiagnosis,
+            init(Set doctors = new HashSet();),
+            action(doctors.add($d);),
+            result(doctors)
+        )
+        eval ($setDoc.size() >= 3)
+
+    then
+        System.out.println("Zavisnici");
+        $rp.getReportAddicts().add($chart);
+end

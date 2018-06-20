@@ -47,4 +47,13 @@ public class Diagnosis {
     Set<Medicine> medicines = new HashSet<>();
 
     private boolean active = true;
+
+    public boolean containsType(MedicineType medicineType){
+        for(Medicine m : medicines){
+            if(m.getType() == medicineType){
+                return true;
+            }
+        }
+        return false;
+    }
 }
