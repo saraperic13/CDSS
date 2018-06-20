@@ -154,6 +154,7 @@ export class MedicalChartDetailsComponent implements OnInit {
   setMedicines() {
     this.diagnosticService.setMedicines(this.checkedMedicines, this.diagnosis.id).subscribe(res => {
       this.resetForms();
+      this.diagnosis = null;
     });
   }
 

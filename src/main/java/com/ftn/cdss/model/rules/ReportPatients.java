@@ -18,7 +18,7 @@ public class ReportPatients {
 
     private List<MedicalChart> reportChronicPatients = new ArrayList<>();
 
-    private List<MedicalChart> reportAddicts;
+    private List<MedicalChart> reportAddicts = new ArrayList<>();
 
     private List<MedicalChart> reportLowImmuneSystem = new ArrayList<>();
 
