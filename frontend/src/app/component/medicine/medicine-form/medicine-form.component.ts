@@ -92,17 +92,21 @@ export class MedicineFormComponent implements OnInit {
 
   resetFields() {
     this.form.reset();
+    let aa = document.getElementsByClassName("box");
+    for (var i = 0, n = aa.length; i < n; i++) {
+      aa[i].checked = false;
+    }
   }
 
   onCheckboxChange(option, event) {
-    if(event.target.checked) {
+    if (event.target.checked) {
       let ing: Ingredient = new Ingredient();
       ing.id = option.id;
       this.checkedIngredients.push(ing);
     } else {
-      for(var i=0 ; i < this.ingredients.length; i++) {
-        if(this.checkedIngredients[i].id == option.id){
-          this.checkedIngredients.splice(i,1);
+      for (var i = 0; i < this.ingredients.length; i++) {
+        if (this.checkedIngredients[i].id == option.id) {
+          this.checkedIngredients.splice(i, 1);
         }
       }
     }

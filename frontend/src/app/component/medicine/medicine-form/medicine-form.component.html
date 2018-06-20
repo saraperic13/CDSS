@@ -32,7 +32,7 @@
 
   <div class="checkbox" *ngFor="let i of ingredients">
     <label>
-      <input type="checkbox" value="i.id"
+      <input type="checkbox" value="i.id" class="box"
              (change)="onCheckboxChange(i,$event)">{{i.name}}</label>
   </div>
 
