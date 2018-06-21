@@ -16,11 +16,11 @@ rule "Medicine validation"
             action(
                 for(Object a : $allergies){
                     String allergyName = ((Allergy)a).getName();
-                    if(allergyName.contains($medicineName)){
+                    if(allergyName.toLowerCase().contains($medicineName.toLowerCase())){
                         valid = false;
                     }
                     for(Object i : $ingredients){
-                         if(allergyName.contains(((Ingredient)i).getName())){
+                         if(allergyName.toLowerCase().contains(((Ingredient)i).getName().toLowerCase())){
                              valid = false;
                          }
                     }
