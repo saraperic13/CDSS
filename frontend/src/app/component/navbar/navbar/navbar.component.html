@@ -27,6 +27,10 @@
         <a class="nav-link" routerLink="/reports">Izveštaji</a>
       </li>
 
+      <li *ngIf="userIsAdmin()" class="nav-item active">
+        <a class="nav-link" routerLink="/rules">Pravila</a>
+      </li>
+
     </ul>
   </div>
 

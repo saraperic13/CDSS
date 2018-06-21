@@ -13,6 +13,7 @@ import {MedicinePageComponent} from "./component/medicine/medicine-page/medicine
 import {IngredientPageComponent} from "./component/ingredient/ingredient-page/ingredient-page.component";
 import {DiagnosisListComponent} from "./component/diagnosis/diagnosis-list/diagnosis-list.component";
 import {ReportsComponent} from "./component/reports/reports.component";
+import {RuleFormComponent} from "./component/rule-form/rule-form.component";
 
 const appRoutes: Routes = [
   {
@@ -37,6 +38,11 @@ const appRoutes: Routes = [
   {
     path: 'doctors',
     component: DoctorsPageComponent,
+    canActivate: [CanActivateAdminGuard]
+  },
+  {
+    path: 'rules',
+    component: RuleFormComponent,
     canActivate: [CanActivateAdminGuard]
   },
   {

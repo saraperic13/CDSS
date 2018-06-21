@@ -40,6 +40,8 @@ import {DiagnosisComponent} from './component/diagnosis/diagnosis-card/diagnosis
 import {DiagnosisListComponent} from './component/diagnosis/diagnosis-list/diagnosis-list.component';
 import {ReportsComponent} from './component/reports/reports.component';
 import {ReportService} from "./service/report/report.service";
+import {RuleFormComponent} from './component/rule-form/rule-form.component';
+import {RuleService} from "./service/rules/rule.service";
 
 
 @NgModule({
@@ -65,7 +67,8 @@ import {ReportService} from "./service/report/report.service";
     IngredientPageComponent,
     DiagnosisComponent,
     DiagnosisListComponent,
-    ReportsComponent
+    ReportsComponent,
+    RuleFormComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +87,7 @@ import {ReportService} from "./service/report/report.service";
     DiseaseService,
     MedicineService,
     IngredientService,
+    RuleService,
     ReportService,
     HttpClient,
     CanActivateAuthGuard,

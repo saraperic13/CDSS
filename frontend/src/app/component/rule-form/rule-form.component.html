@@ -1,0 +1,26 @@
+<div class="containter">
+  <div class="row" style="margin-top: 2%">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+
+      <form novalidate id="form" [formGroup]="form">
+
+        <div class="form-group">
+          <label for="rule">Pravilo</label>
+          <textarea rows="10" formControlName="rule" id="rule" placeholder="Unesite definiciju pravila" [ngClass]="{
+            'form-control is-invalid': rule.invalid && (rule.dirty || rule.touched),
+            'form-control is-valid': rule.valid && (rule.dirty || rule.touched),
+            'form-control':true
+          }"></textarea>
+
+          <div class="invalid-feedback" *ngIf="rule.errors && (rule.dirty || rule.touched)">
+            <p *ngIf="rule.errors.required">Definicija je obavezna!</p>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success" (click)="save()" [disabled]="form.invalid">Sačuvaj</button>
+
+      </form>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+</div>

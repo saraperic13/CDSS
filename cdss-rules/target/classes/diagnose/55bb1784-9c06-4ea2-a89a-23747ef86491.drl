@@ -1,0 +1,7 @@
+rule "sara car"
+    agenda-group "medicines"
+    when
+    then
+         System.out.println("EEEEJ");
+end
+
