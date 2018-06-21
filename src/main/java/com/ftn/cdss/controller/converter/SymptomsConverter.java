@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class SymptomsConverter {
 
-    public static List<Symptom> fromDto(List<SymptomDto> symptomsDto) {
+    public static List<Symptom> fromDtos(List<SymptomDto> symptomsDto) {
 
         final List<Symptom> symptomList = new ArrayList<>();
         Symptom symp;
@@ -24,20 +24,7 @@ public class SymptomsConverter {
         return symptomList;
     }
 
-//    public static List<Symptom> fromDto(SymptomsDto symptomsDto) {
-//
-//        final List<Symptom> symptomList = new ArrayList<>();
-//        Symptom symp;
-//        for (String symptom : symptomsDto.getCommonSymptoms()) {
-//            symp = new Symptom();
-//            symp.setName(symptom.trim());
-//            symptomList.add(symp);
-//        }
-//
-//        return symptomList;
-//    }
-
-    public static SymptomsDto toDto(Set<Symptom> symptoms) {
+    public static SymptomsDto toDtos(Set<Symptom> symptoms) {
         final SymptomsDto symptomsDto = new SymptomsDto();
         final List<String> symps = new ArrayList<>();
         for (Symptom symptom : symptoms) {
@@ -45,5 +32,23 @@ public class SymptomsConverter {
         }
         symptomsDto.setSymptoms(symps);
         return symptomsDto;
+    }
+
+    public static SymptomDto toDto(Symptom symptom) {
+        final SymptomDto symptomDto = new SymptomDto();
+        symptomDto.setId(symptom.getId());
+        symptomDto.setName(symptom.getName());
+        symptomDto.setValue(symptom.getValue());
+
+        return symptomDto;
+    }
+
+    public static Symptom fromDto(SymptomDto symptomDto) {
+        final Symptom symptom = new Symptom();
+        symptom.setId(symptomDto.getId());
+        symptom.setName(symptomDto.getName());
+        symptom.setValue(symptomDto.getValue());
+
+        return symptom;
     }
 }

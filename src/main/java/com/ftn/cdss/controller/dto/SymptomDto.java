@@ -15,6 +15,8 @@ import javax.validation.constraints.Size;
 @Setter
 public class SymptomDto {
 
+    private Long id;
+
     @NotNull
     @Size(min = 1)
     private String name;

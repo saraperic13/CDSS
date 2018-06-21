@@ -39,7 +39,7 @@ public class DiagnosticController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity calculate(@RequestBody @Valid List<SymptomDto> symptomsDto, @PathVariable Long chartId) {
 
-        List<Symptom> symptomList = SymptomsConverter.fromDto(symptomsDto);
+        List<Symptom> symptomList = SymptomsConverter.fromDtos(symptomsDto);
         final Disease disease = this.diagnosticService.calculate(symptomList, chartId);
         return new ResponseEntity<>(DiseaseConverter.toDto(disease), HttpStatus.OK);
     }
@@ -50,7 +50,7 @@ public class DiagnosticController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity calculateAll(@RequestBody @Valid List<SymptomDto> symptomsDto, @PathVariable Long chartId) {
 
-        final List<Symptom> symptomList = SymptomsConverter.fromDto(symptomsDto);
+        final List<Symptom> symptomList = SymptomsConverter.fromDtos(symptomsDto);
         final List<Disease> disease = this.diagnosticService.getAllCalculated(symptomList, chartId);
         final List<DiseaseDto> diseaseDtos = disease.stream().map(DiseaseConverter::toDto).collect(Collectors.toList());
         return new ResponseEntity<>(diseaseDtos, HttpStatus.OK);
