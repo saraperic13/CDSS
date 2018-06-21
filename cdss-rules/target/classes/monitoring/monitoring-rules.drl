@@ -45,9 +45,13 @@ end
 rule "Dialysis needed!"
     when
         ICUPatient($ssn: ssn)
-        $chart: MedicalChart(ssn == $ssn)
+        $chart: MedicalChart(ssn == $ssn, $diagnosis:diagnosis)
         $hb1: HeartBeatEvent(ssn==$ssn)
         $ue1: UrineEvent(ssn==$ssn)
+
+        $list: List() from collect(
+                    Diagnosis( disease.name == "Hronična bubrežna bolest")
+                    from $diagnosis)
 
         Number(intValue > 10) from accumulate(
             $hb2: HeartBeatEvent(
@@ -58,23 +62,17 @@ rule "Dialysis needed!"
             count($hb2)
         )
 
-        $total: Number(intValue < 100) from accumulate(
+        $total: Number() from accumulate(
                     UrineEvent(
                         ssn == $ssn,
                         $urineMl: change
                     ) over window:time(12h),
                     sum($urineMl)
                 )
+         eval((int)$total < 100)
 
-    then
-
-        final List<String> diseaseNames = $chart.getDiagnosis().stream().map(
-                diagnosis -> diagnosis.getDisease().getName()).collect(Collectors.toList());
-
-        if(diseaseNames.contains("Hronična bubrežna bolest")){
-
-            insert(new DialysisNeededEvent($ssn));
-            drools.halt();
-        }
+then
+    insert(new DialysisNeededEvent($ssn));
+    drools.halt();
 
 end

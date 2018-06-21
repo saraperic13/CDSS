@@ -48,6 +48,8 @@ public class DialysisNeededTest {
         final HashMap<Integer, FactHandle> facts = fillTheMapInsertInSession(kieSession);
 
         final SessionPseudoClock clock = kieSession.getSessionClock();
+        final MedicalChart medicalChart = createMedicalChart(PATIENT_1_SSN);
+        kieSession.insert(medicalChart);
 
         // Insert urine events longer period
         for (int index = 0; index < 10; index++) {
@@ -75,9 +77,6 @@ public class DialysisNeededTest {
             ruleCount = kieSession.fireAllRules();
             assertThat(ruleCount, equalTo(0));
         }
-
-        final MedicalChart medicalChart = createMedicalChart(PATIENT_1_SSN);
-        kieSession.insert(medicalChart);
 
         ruleCount = kieSession.fireAllRules();
         assertThat(ruleCount, equalTo(1));
