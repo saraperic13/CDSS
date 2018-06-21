@@ -16,7 +16,10 @@ public class SymptomsConverter {
         Symptom symp;
         for (SymptomDto symptomDto : symptomsDto) {
             symp = new Symptom();
-            symp.setName(symptomDto.getName().trim());
+            symp.setId(symptomDto.getId());
+            if (symptomDto.getName() != null) {
+                symp.setName(symptomDto.getName().trim());
+            }
             symp.setValue(symptomDto.getValue());
             symptomList.add(symp);
         }

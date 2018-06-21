@@ -1,0 +1,34 @@
+<table class="table-sm table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Tip</th>
+    <th scope="col">Ime</th>
+    <th scope="col">Opšti simptomi</th>
+    <th scope="col">Specifični simptomi</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let disease of diseases;let idx = index">
+    <td scope="row">{{idx+1}}</td>
+    <td scope="row">{{getDiseaseName(disease.type)}}</td>
+    <td scope="row">{{disease.name}}</td>
+    <td scope="row">
+      <p *ngFor="let symp of disease.commonSymptoms">
+        {{symp.name}}{{symp.value}}
+      </p>
+    </td>
+    <td scope="row">
+      <p *ngFor="let symp of disease.specificSymptoms">
+        {{symp.name}}{{symp.value}}
+      </p>
+    </td>
+    <td scope="row">
+      <button href="#" (click)="updateDisease(disease)" class="btn btn-warning ">E</button>
+    </td>
+    <td scope="row">
+      <button (click)="deleteDisease(disease.id)" class="btn btn-danger">X</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

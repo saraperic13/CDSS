@@ -42,6 +42,10 @@ import {ReportsComponent} from './component/reports/reports.component';
 import {ReportService} from "./service/report/report.service";
 import {RuleFormComponent} from './component/rule-form/rule-form.component';
 import {RuleService} from "./service/rules/rule.service";
+import {DiseaseFormComponent} from './component/diseases/disease-form/disease-form.component';
+import {DiseaseListComponent} from './component/diseases/disease-list/disease-list.component';
+import {DiseasePageComponent} from './component/diseases/disease-page/disease-page.component';
+import {SymptomService} from "./service/symptom/symptom.service";
 
 
 @NgModule({
@@ -68,7 +72,10 @@ import {RuleService} from "./service/rules/rule.service";
     DiagnosisComponent,
     DiagnosisListComponent,
     ReportsComponent,
-    RuleFormComponent
+    RuleFormComponent,
+    DiseaseFormComponent,
+    DiseaseListComponent,
+    DiseasePageComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +97,8 @@ import {RuleService} from "./service/rules/rule.service";
     RuleService,
     ReportService,
     HttpClient,
+    DiseaseService,
+    SymptomService,
     CanActivateAuthGuard,
     CanActivateAdminGuard,
     CanActivateDoctorGuard,

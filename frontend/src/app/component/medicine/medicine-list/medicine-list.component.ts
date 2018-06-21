@@ -30,14 +30,14 @@ export class MedicineListComponent implements OnInit {
     this.medicineUpdateClicked.emit(medicalMedicine);
   }
 
-  getMedicineName(type: number){
-    if(type==0){
+  getMedicineName(type: number) {
+    if (type == 0) {
       return "ANTIBIOTIK";
-    }else if(type==1){
+    } else if (type == 1) {
       return "ANALGETIK"
-    }else{
+    } else {
       return "DRUGO";
     }
-}
+  }
 
 }

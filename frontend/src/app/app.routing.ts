@@ -14,6 +14,7 @@ import {IngredientPageComponent} from "./component/ingredient/ingredient-page/in
 import {DiagnosisListComponent} from "./component/diagnosis/diagnosis-list/diagnosis-list.component";
 import {ReportsComponent} from "./component/reports/reports.component";
 import {RuleFormComponent} from "./component/rule-form/rule-form.component";
+import {DiseasePageComponent} from "./component/diseases/disease-page/disease-page.component";
 
 const appRoutes: Routes = [
   {
@@ -43,6 +44,11 @@ const appRoutes: Routes = [
   {
     path: 'rules',
     component: RuleFormComponent,
+    canActivate: [CanActivateAdminGuard]
+  },
+  {
+    path: 'diseases',
+    component: DiseasePageComponent,
     canActivate: [CanActivateAdminGuard]
   },
   {

@@ -1,0 +1,17 @@
+<div class="containter">
+  <div class="row" style="margin-top: 2%">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-6">
+      <h5>Bolesti</h5>
+      <app-disease-list [diseases]="diseases"
+                        (diseaseDeleted)="onDiseaseDeleted($event)"
+                        (diseaseUpdateClicked)="onDiseaseUpdateClicked($event)"></app-disease-list>
+    </div>
+    <div class="col-sm-4">
+      <app-disease-form [diseaseToUpdate]="diseaseToUpdate"
+                        (diseaseUpdated)="onDiseaseUpdate($event)"
+                        (diseaseCreated)="onDiseaseDeleted($event)"></app-disease-form>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</div>

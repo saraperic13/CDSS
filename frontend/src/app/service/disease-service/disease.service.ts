@@ -23,4 +23,37 @@ export class DiseaseService {
     });
   }
 
+  add(diseaseParams: Disease): Observable<Disease[]> {
+
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(this.path, diseaseParams, {headers}).map((response: any) => {
+      return response;
+
+    }).catch((error: any) => {
+      return Observable.throw(error || 'Server error');
+    });
+  }
+
+  delete(diseaseId: number) {
+
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    console.log(JSON.stringify(diseaseId));
+    return this.http.delete(this.path + "/" + diseaseId, {headers}).map((response: any) => {
+      return response;
+
+    }).catch((error: any) => {
+      return Observable.throw(error || 'Server error');
+    });
+  }
+
+  update(disease: Disease) {
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.put(this.path, disease, {headers}).map((response: any) => {
+      return response;
+
+    }).catch((error: any) => {
+      return Observable.throw(error || 'Server error');
+    });
+  }
+
 }
